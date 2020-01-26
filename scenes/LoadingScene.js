@@ -3,14 +3,26 @@ class LoadingScene extends Phaser.Scene {
     super("loading");
   }
 
+  init () {
+    this.readyCount = 0;
+  }
+   
+  ready () {
+    this.readyCount++;
+    if (this.readyCount === 2) {
+      this.scene.start('mainMenu');
+    }
+  }
+
   preload() {
     let progressBar = this.add.graphics();
     let progressBox = this.add.graphics();
     progressBox.fillStyle(0x5ceb34, 0.8);
     progressBox.fillRect(240, 270, 320, 50);
 
-    let width = this.cameras.main.width;
-    let height = this.cameras.main.height;
+    let width = this.game.renderer.width;
+    let height = this.game.renderer.height;
+    
     let loadingText = this.make.text({
         x: width / 2,
         y: height / 2 - 50,
@@ -46,16 +58,20 @@ class LoadingScene extends Phaser.Scene {
       progressBox.destroy();
       loadingText.destroy()
       percentText.destroy();
-    });
+      this.ready();  
+    }.bind(this));
+
+    this.timedEvent = this.time.delayedCall(3000, this.ready, [], this);
 
     this.load.image("logo", "./../scenes/assets/logo.png");
     for (let i = 0; i < 500; i++) {
       this.load.image("logo" + i, "./../scenes/assets/logo.png");
     }
+    
   }
 
   create() {
     this.add.image(400, 300, "logo");
-    // this.scene.start('./MainMenu.js')
   }
 }
+
