@@ -15,6 +15,7 @@ class LoadingScene extends Phaser.Scene {
   }
 
   preload() {
+    this.load.audio('music', ['./../scenes/assets/bg-music.mp3'])
     let progressBar = this.add.graphics();
     let progressBox = this.add.graphics();
     progressBox.fillStyle(0x5ceb34, 0.8);
@@ -22,7 +23,7 @@ class LoadingScene extends Phaser.Scene {
 
     let width = this.game.renderer.width;
     let height = this.game.renderer.height;
-    
+
     let loadingText = this.make.text({
         x: width / 2,
         y: height / 2 - 50,
@@ -71,6 +72,8 @@ class LoadingScene extends Phaser.Scene {
   }
 
   create() {
+    globalThis.music = this.sound.add('music', { loop: true})
+    globalThis.music.play()
     this.add.image(400, 300, "logo");
   }
 }

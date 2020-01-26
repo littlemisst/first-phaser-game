@@ -9,9 +9,9 @@ class MainMenu extends Phaser.Scene {
       "./../scenes/assets/background.jpg"
     );
     this.load.image('logoMainScreen', './../scenes/assets/logo-for-main-screen.png' )
-    this.load.image('playButton', './../scenes/assets/play-logo.png' )
-    this.load.image('optionsButton', './../scenes/assets/options-logo.png' )
-    this.load.image('creditsButton', './../scenes/assets/credits-logo.png' )
+    this.load.image('playButton', './../scenes/assets/play-logo.png')
+    this.load.image('optionsButton', './../scenes/assets/options-logo.png')
+    this.load.image('creditsButton', './../scenes/assets/credits-logo.png')
   }
 
   create() {
@@ -20,12 +20,14 @@ class MainMenu extends Phaser.Scene {
 
     this.add.image(this.game.renderer.width / 2, this.game.renderer.height * 0.20, 'logoMainScreen').setDepth(1)
     this.playButton = this.add.image(this.game.renderer.width / 2, this.game.renderer.height /2, 'playButton').setDepth(1)
-    this. optionsButton = this.add.image(this.game.renderer.width / 2, this.game.renderer.height /2 + 90, 'optionsButton').setDepth(1)
+    this.optionsButton = this.add.image(this.game.renderer.width / 2, this.game.renderer.height /2 + 90, 'optionsButton').setDepth(1)
     this.creditsButton = this.add.image(this.game.renderer.width / 2, this.game.renderer.height /2 + 180, 'creditsButton').setDepth(1)
 
     this.playButton.setInteractive()
-
+    this.optionsButton.setInteractive()
+    
     this.playButton.on('pointerdown', () => this.scene.start('mainGame'));
+    this.optionsButton.on('pointerdown', () => this.scene.start('optionsScene'));
   }
 
   
