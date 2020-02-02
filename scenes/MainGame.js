@@ -1,4 +1,4 @@
-let villager1, villager2, timedEvent, villagers;
+let villager1, villager2, timedEvent
 class MainGame extends Phaser.Scene {
   constructor() {
     super("mainGame");
@@ -12,9 +12,11 @@ class MainGame extends Phaser.Scene {
       frameHeight: 60
     });
     this.load.spritesheet("villagerTwo", "./../scenes/assets/villager2.png", {
-      frameWidth: 36,
+      frameWidth: 35,
       frameHeight: 58
     });
+    this.load.image("potatoKwekKwek", "./../scenes/assets/potatoKwekKwek.png");
+    this.load.image("kamoteLumpia", "./../scenes/assets/kamoteLumpia.png");
   }
 
   create() {
@@ -27,17 +29,6 @@ class MainGame extends Phaser.Scene {
       "mainCharacter"
     );
     this.character.setScale(0.8, 0.8);
-
-    // villager1 = this.physics.add
-    //   .sprite(
-    //     this.game.renderer.width,
-    //     this.game.renderer.height / 2 + 180,
-    //     "villagerOne"
-    //   )
-    //   .setScale(1.8);
-    // villager2 = this.physics.add
-    //   .sprite(0, this.game.renderer.height / 2 + 180, "villagerTwo")
-    //   .setScale(1.8);
 
     this.anims.create({
       key: "villager1",
@@ -61,10 +52,12 @@ class MainGame extends Phaser.Scene {
     });
 
     this.villagers = this.add.group();
+    this.foodOrders = this.add.group()
+
     this.time.addEvent({
       delay: 20000,
       callback: function() {
-        let villager = new VillagerOne(
+        let villager = new VillagerFromRight(
           this,
           this.game.renderer.width,
           this.game.renderer.height / 2 + 180
@@ -78,11 +71,12 @@ class MainGame extends Phaser.Scene {
     this.time.addEvent({
       delay: 10000,
       callback: function() {
-        let villager = new VillagerTwo(
+        let villager = new VillagerFromLeft(
           this,
           0,
           this.game.renderer.height / 2 + 180
         );
+        villager.flipX = true
         this.villagers.add(villager);
       },
       callbackScope: this,
