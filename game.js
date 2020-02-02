@@ -4,7 +4,13 @@ const config = {
   width: 800,
   height: 600,
   backgroundColor: 0xffffff,
-  scene: [LoadingScene, MainMenu, MainGame, OptionsScene]
+  audio: {
+    disableWebAudio: true
+  },
+  physics: {
+    default: 'arcade'
+  },
+  scene: [LoadingScene, MainMenu, MainGame]
 };
 
 const game = new Phaser.Game(config);
