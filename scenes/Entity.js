@@ -44,7 +44,7 @@ class FoodOrder extends Entity {
     this.setInteractive({dropZone: true}).setName(order+'Menu')
   
     scene.time.delayedCall(
-      5000,
+      10000,
       function(obj) {
         this.destroy();
       },
@@ -53,29 +53,3 @@ class FoodOrder extends Entity {
     );
   }
 }
-
-class Angry extends Entity {
-  constructor(scene, x, y, velocity) {
-    super(scene, x, y, "angry");
-    this.body.setVelocityX(velocity);
-  }
-}
-
-
-
-// scene.input.setDraggable(this, true);
-
-//     scene.input.on("dragstart", function(pointer, obj) {
-//       obj.body.setVelocityX(0);
-//     });
-//     scene.input.on("drag", function(pointer, obj, dragX, dragY) {
-//       obj.setPosition(dragX, dragY);
-//     });
-//     scene.input.on("drop", function(pointer, obj, dropZone) {
-//       obj.x = dropZone.x;
-//       obj.y = dropZone.y;
-//       obj.input.enabled = false;
-//       score += 10
-//       console.log(score)
-//       // obj.destroy();
-//     });

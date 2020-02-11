@@ -1,4 +1,16 @@
-let character, foodOrders, villagers, score, menu, foodMenu;
+let character,
+  foodOrders,
+  villagers,
+  score,
+  goal,
+  menu,
+  foodMenu,
+  mainProgressBar,
+  mainProgressBarMask,
+  menuList,
+  enemyProgressBar,
+  enemyProgressBarMask;
+
 class MainGame extends Phaser.Scene {
   constructor() {
     super("mainGame");
@@ -26,30 +38,129 @@ class MainGame extends Phaser.Scene {
       "kamoteLumpiaMenu",
       "./../scenes/assets/menuKamoteLumpia.png"
     );
+    this.load.image(
+      "fullProgressBar",
+      "./../scenes/assets/fullprogressbar.png"
+    );
+    this.load.image(
+      "emptyProgressBar",
+      "./../scenes/assets/emptyprogressbar.png"
+    );
+    this.load.image(
+      "competitorProgressBar",
+      "./../scenes/assets/competitor.png"
+    );
+    this.load.image("character", "./../scenes/assets/charLogo.png");
+    this.load.image("enemy", "./../scenes/assets/enemy.png");
   }
 
   create() {
     score = 0;
+    goal = 360;
     this.background = this.add.image(0, 0, "mainBg").setDepth(0);
     this.background.setOrigin(0, 0);
 
     this.backgroundBorder = this.add.image(0, 0, "mainBgBorder").setDepth(2);
     this.backgroundBorder.setOrigin(0, 0);
 
-    this.menuList = ["potatoKwekKwekMenu", "kamoteLumpiaMenu"];
+    this.mainProgressBar = this.add
+      .image(
+        this.game.renderer.width - 55,
+        this.game.renderer.height / 2 + 100,
+        "fullProgressBar"
+      )
+      .setDepth(2);
+
+    mainProgressBar = this.add
+      .image(
+        this.game.renderer.width - 55,
+        this.game.renderer.height / 2 + 100,
+        "emptyProgressBar"
+      )
+      .setDepth(2);
+    mainProgressBarMask = this.add
+      .image(
+        this.game.renderer.width - 55,
+        this.game.renderer.height / 2 + 100,
+        "emptyProgressBar"
+      )
+      .setDepth(2);
+    mainProgressBarMask.visible = false;
+    mainProgressBar.mask = new Phaser.Display.Masks.BitmapMask(
+      this,
+      mainProgressBarMask
+    );
+
+    this.characterLogo = this.add
+      .image(
+        this.game.renderer.width - 55,
+        this.game.renderer.height / 2 + 240,
+        "character"
+      )
+      .setDepth(2)
+      .setScale(0.4);
+
+    this.enemyBackgroundProgressBar = this.add
+      .image(
+        this.game.renderer.width - 20,
+        this.game.renderer.height / 2 + 100,
+        "competitorProgressBar"
+      )
+      .setDepth(2);
+
+    enemyProgressBar = this.add
+      .image(
+        this.game.renderer.width - 20,
+        this.game.renderer.height / 2 + 100,
+        "emptyProgressBar"
+      )
+      .setDepth(2);
+
+    enemyProgressBarMask = this.add
+      .image(
+        this.game.renderer.width - 20,
+        this.game.renderer.height / 2 + 100,
+        "emptyProgressBar"
+      )
+      .setDepth(2);
+    enemyProgressBarMask.visible = false;
+    enemyProgressBar.mask = new Phaser.Display.Masks.BitmapMask(
+      this,
+      enemyProgressBarMask
+    );
+
+    this.enemyLogo = this.add
+      .image(
+        this.game.renderer.width - 20,
+        this.game.renderer.height / 2 + 240,
+        "enemy"
+      )
+      .setDepth(2)
+      .setScale(0.4);
+
+    this.time.addEvent({
+      delay: Phaser.Math.Between(5000, 7000),
+      callback: function() {
+        let randomTime = Phaser.Math.Between(2, 5);
+        enemyProgressBarMask.y -= randomTime;
+      },
+      callbackScope: this,
+      loop: true
+    });
+
+    menuList = ["potatoKwekKwekMenu", "kamoteLumpiaMenu"];
     foodMenu = this.add.group();
     let initialPos = 62;
 
-    for (let i = 0; i < this.menuList.length; i++) {
+    for (let i = 0; i < menuList.length; i++) {
       let currentPos = initialPos;
       menu = this.add
-        .image(currentPos, 60, this.menuList[i])
-        .setDepth(2)
+        .image(currentPos, 60, menuList[i])
+        .setDepth(1)
         .setScale(0.5);
       initialPos += 90;
-      menu.setName(this.menuList[i]);
+      menu.setName(menuList[i]);
       foodMenu.add(menu);
-      // menu.setInteractive();
     }
     foodMenu.children.each(function(food) {
       food.setInteractive();
@@ -61,7 +172,7 @@ class MainGame extends Phaser.Scene {
             .setDepth(2)
             .setScale(0.5)
             .setInteractive({ draggable: true })
-            .setName(food.name)
+            .setName(food.name);
         },
         this
       );
@@ -72,25 +183,23 @@ class MainGame extends Phaser.Scene {
     });
 
     this.input.on("drop", function(pointer, obj, dropZone) {
-      console.log("menu name " + obj.name);
-      console.log("dropzone name " + dropZone.name);
       if (obj.name === dropZone.name) {
         obj.x = dropZone.x;
         obj.y = dropZone.y;
         obj.input.enabled = false;
-        score += 10;
+        score += 5;
+        console.log(score);
         obj.destroy();
-        dropZone.destroy()
-        console.log("right " + score);
+        dropZone.destroy();
+        if (score < goal) {
+          mainProgressBarMask.y -= 8;
+        }
       } else if (obj.name != dropZone.name) {
-        console.log("engggg");
-        obj.destroy()
-        dropZone.destroy()
-        score -= 10;
-        console.log("minus" + score);
+        obj.destroy();
+        dropZone.destroy();
+        score -= 5;
+        mainProgressBarMask.y += 8;
       }
-
-      // obj.destroy();
     });
 
     character = this.physics.add
@@ -101,11 +210,7 @@ class MainGame extends Phaser.Scene {
       )
       .setScale(0.8, 0.8)
       .setInteractive();
-    // character.input.dropZone = true;
-    // this.input.on('gameobjectdown', function() {
-    //   this.score += 10
-    //   console.log(this.score)
-    // }, this)
+
     this.anims.create({
       key: "villager1",
       frames: this.anims.generateFrameNumbers("villagerOne", {
@@ -160,12 +265,5 @@ class MainGame extends Phaser.Scene {
       callbackScope: this,
       loop: true
     });
-
-    // this.physics.add.collider(foodOrders, character, this.collides, null, this);
   }
-
-  // collides(food, character) {
-  //   score += 10
-  //   console.log(score);
-  // }
 }
