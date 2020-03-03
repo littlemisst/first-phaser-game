@@ -10,7 +10,7 @@ const config = {
   physics: {
     default: 'arcade'
   },
-  scene: [LoadingScene, MainMenu, MainGame]
+  scene: [LoadingScene, MainMenu, MainGameLevels, ShopScene, CookBookScene, LevelOneTutorial, LevelOne]
 };
 
 const game = new Phaser.Game(config);

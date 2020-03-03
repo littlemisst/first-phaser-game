@@ -1,7 +1,6 @@
 let character,
   foodOrders,
   villagers,
-  score,
   goal,
   menu,
   foodMenu,
@@ -11,9 +10,10 @@ let character,
   enemyProgressBar,
   enemyProgressBarMask;
 
-class MainGame extends Phaser.Scene {
+globalThis.score = 0
+class LevelOne extends Phaser.Scene {
   constructor() {
-    super("mainGame");
+    super("levelOne");
   }
   preload() {
     this.load.image("mainBg", "./../scenes/assets/main screen bg.jpg");
@@ -52,11 +52,14 @@ class MainGame extends Phaser.Scene {
     );
     this.load.image("character", "./../scenes/assets/charLogo.png");
     this.load.image("enemy", "./../scenes/assets/enemy.png");
+    this.load.image("back", "./../scenes/assets/back.png");
   }
 
   create() {
-    score = 0;
     goal = 360;
+    this.back = this.add.image(this.game.renderer.width - 35, this.game.renderer.height - 30, "back").setScale(0.4).setDepth(3).setInteractive()
+    this.back.on('pointerdown', () => this.scene.switch('mainMenu'), this)
+    
     this.background = this.add.image(0, 0, "mainBg").setDepth(0);
     this.background.setOrigin(0, 0);
 
@@ -139,10 +142,10 @@ class MainGame extends Phaser.Scene {
       .setScale(0.4);
 
     this.time.addEvent({
-      delay: Phaser.Math.Between(5000, 7000),
+      delay: Phaser.Math.Between(3000, 5000),
       callback: function() {
-        let randomTime = Phaser.Math.Between(2, 5);
-        enemyProgressBarMask.y -= randomTime;
+        let randomProgress = Phaser.Math.Between(5, 8);
+        enemyProgressBarMask.y -= randomProgress;
       },
       callbackScope: this,
       loop: true
@@ -187,10 +190,11 @@ class MainGame extends Phaser.Scene {
         obj.x = dropZone.x;
         obj.y = dropZone.y;
         obj.input.enabled = false;
-        score += 5;
-        console.log(score);
+        coins += 1
         obj.destroy();
         dropZone.destroy();
+        score += 5;
+        console.log(score)
         if (score < goal) {
           mainProgressBarMask.y -= 8;
         }
@@ -201,6 +205,10 @@ class MainGame extends Phaser.Scene {
         mainProgressBarMask.y += 8;
       }
     });
+    if (score > 10) {
+      this.scene.sleep('levelOne')
+      console.log(score)
+    }
 
     character = this.physics.add
       .sprite(

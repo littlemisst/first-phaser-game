@@ -65,7 +65,7 @@ class LoadingScene extends Phaser.Scene {
     this.timedEvent = this.time.delayedCall(3000, this.ready, [], this);
 
     this.load.image("logo", "./../scenes/assets/logo.png");
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 50; i++) {
       this.load.image("logo" + i, "./../scenes/assets/logo.png");
     }
     
@@ -73,7 +73,7 @@ class LoadingScene extends Phaser.Scene {
 
   create() {
     globalThis.music = this.sound.add('music', { loop: true})
-    globalThis.music.play()
+    // globalThis.music.play()
     this.add.image(400, 300, "logo");
   }
 }

@@ -1,3 +1,5 @@
+globalThis.coins = 10000
+
 class MainMenu extends Phaser.Scene {
   constructor() {
     super("mainMenu");
@@ -10,6 +12,8 @@ class MainMenu extends Phaser.Scene {
     );
     this.load.image('logoMainScreen', './../scenes/assets/logo-for-main-screen.png' )
     this.load.image('play', './../scenes/assets/play-logo.png')
+    this.load.image('shop', './../scenes/assets/shop-logo.png')
+    this.load.image('cookBook', './../scenes/assets/cookbooklogo.png')
     this.load.image("soundOn", "./../scenes/assets/soundOn.png");
     this.load.image("soundOff", "./../scenes/assets/soundOff.png");
   }
@@ -21,17 +25,27 @@ class MainMenu extends Phaser.Scene {
     this.add.image(this.game.renderer.width / 2, this.game.renderer.height * 0.20, 'logoMainScreen').setDepth(1)
    
     this.playButtonHere()
-    this.soundButton()
+    this.shopButtonHere()
+    this.cookBookButtonHere()
+    this.soundButtonHere()
     this.updateAudio()
     // this.creditsButton = this.add.image(this.game.renderer.width / 2, this.game.renderer.height /2 + 180, 'credits').setDepth(1)
   }
 
   playButtonHere() {
-    this.playButton = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height /2 + 50, 'play').setDepth(1).setInteractive()
-    this.playButton.on('pointerdown', () => this.scene.start('mainGame'), this);
+    this.playButton = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height /2, 'play').setDepth(1).setInteractive()
+    this.playButton.on('pointerdown', () => this.scene.switch('mainGameLevels'), this);
+  }
+  shopButtonHere() {
+    this.shopButton = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height /2 + 100, 'shop').setDepth(1).setInteractive()
+    this.shopButton.on('pointerdown', () => this.scene.switch('shop'), this);
+  }
+  cookBookButtonHere() {
+    this.cookBookButton = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height /2 + 200, 'cookBook').setDepth(1).setInteractive()
+    this.cookBookButton.on('pointerdown', () => this.scene.switch('cookBook'), this);
   }
 
-  soundButton () {
+  soundButtonHere() {
     this.musicOn = true;
     this.soundButton = this.add.image(this.game.renderer.width / 2 + 320, this.game.renderer.height /2 + 250, 'soundOn').setDepth(1).setInteractive()
     this.soundButton.on(
