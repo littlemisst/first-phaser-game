@@ -14,8 +14,8 @@ class MainGameScene extends EntityScene {
     scene.back = scene.add.image(scene.game.renderer.width - 35, scene.game.renderer.height - 30, "back").setScale(0.4).setDepth(3).setInteractive()
     scene.back.on('pointerdown', () => scene.scene.switch('mainMenu'), this)
     
-    scene.background = scene.add.image(0, 0, "mainBg").setDepth(0);
-    scene.background.setOrigin(0, 0);
+    globalThis.background = scene.add.image(0, 0, "mainBg").setDepth(0);
+    background.setOrigin(0, 0);
 
     scene.backgroundBorder = scene.add.image(0, 0, "mainBgBorder").setDepth(2);
     scene.backgroundBorder.setOrigin(0, 0);
@@ -23,14 +23,14 @@ class MainGameScene extends EntityScene {
     new ProgressBar(scene, scene.game.renderer.width - 55, 'character', 'fullProgressBar')
     new ProgressBar(scene, scene.game.renderer.width - 20, 'enemy', 'competitorProgressBar' )
 
-    scene.add
+    globalThis.character = scene.add
       .image(
         scene.game.renderer.width / 2 - 100,
         scene.game.renderer.height / 2 + 100,
         "mainCharacter"
       ).setScale(0.8, 0.8)
 
-    scene.add
+    globalThis.enemy = scene.add
       .image(
         scene.game.renderer.width / 2 + 100,
         scene.game.renderer.height / 2 + 100,
@@ -66,10 +66,8 @@ class ProgressBar extends EntityScene {
 }
 
 class FoodMenu extends EntityScene {
-  constructor(scene, menuList, foodMenu, menu) {
+  constructor(scene, menuList, foodMenu, menu, demands) {
     super(scene)
-
-    foodMenu = scene.add.group();
 
     let initialPos = 62;
 
@@ -89,16 +87,43 @@ class FoodMenu extends EntityScene {
       food.on(
         "pointerdown",
         function(pointer) {
-          scene.add
+          scene.demand = scene.add
             .image(pointer.x, pointer.y, food.name)
             .setDepth(2)
             .setScale(0.5)
             .setInteractive({ draggable: true })
             .setName(food.name);
+          demands.add(scene.demand);
         },
         scene
       );
     }, scene);
+  }
+}
+
+
+class Recipe extends EntityScene {
+  constructor(scene, target) {
+    super(scene)
+    
+    scene.tweens.add({
+      targets: target,
+      x: scene.game.renderer.width/2,
+      duration: 5000,
+      ease: 'Elastic',
+      easeParams: [ 1.5, 0.5 ],
+      delay: 0
+    });
+
+    scene.time.addEvent({
+      delay: 4000,
+      callback: function() {
+        scene.sparkle = scene.add.sprite(scene.game.renderer.width/2, scene.game.renderer.height/2, 'sparkles')
+        scene.sparkle.play('sparkle')
+      },
+      callbackScope: this,
+      loop: false
+    });
   }
 }
 

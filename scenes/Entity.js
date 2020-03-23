@@ -21,6 +21,7 @@ class VillagerFromLeft extends Entity {
     this.anims.play(villagerType[index]);
     food = new FoodOrder(this.scene, this.x, this.y - 60, this.body.velocity.x, level);
     food.setScale(0.5, 0.5).setDepth(1);
+    foodOrders.add(food)
   }
 }
 
@@ -32,6 +33,7 @@ class VillagerFromRight extends Entity {
     this.anims.play(villagerType[index]);
     food = new FoodOrder(this.scene, this.x, this.y - 60, this.body.velocity.x, level);
     food.setScale(0.5, 0.5).setDepth(1);
+    foodOrders.add(food)
   }
 }
 

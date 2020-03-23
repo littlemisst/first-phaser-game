@@ -1,11 +1,8 @@
-globalThis.coins = 10000
-
 class MainMenu extends Phaser.Scene {
   constructor() {
     super("mainMenu");
   }
-
-
+  
   create() {
     this.background = this.add.image(0,0,'background').setDepth(0)
     this.background.setOrigin(0,0)

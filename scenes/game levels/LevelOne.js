@@ -4,11 +4,14 @@ let goal,
   menuList,
   enemyProgressBar,
   enemyProgressBarMask,
-  menu, foodMenu
+  menu, foodMenu,
+  score,
+  villagers,
+  demands, foodOrders
 
 
 menuList = ["potatoKwekKwekMenu", "kamoteLumpiaMenu"];
-globalThis.score = 0
+
 
 class LevelOne extends Phaser.Scene {
   constructor() {
@@ -16,8 +19,14 @@ class LevelOne extends Phaser.Scene {
   }
 
   create() {
-    goal = 20
-    new MainGameScene(this)
+    villagers = this.add.group()
+    foodMenu = this.add.group()
+    demands = this.add.group()
+    foodOrders = this.add.group()
+    score = 0
+    goal = 300
+
+    this.baseScene = new MainGameScene(this)
 
     //progress bar for main character
     emptyProgressBar = this.add
@@ -67,7 +76,7 @@ class LevelOne extends Phaser.Scene {
     this.time.addEvent({
       delay: Phaser.Math.Between(3000, 5000),
       callback: function() {
-        let randomProgress = Phaser.Math.Between(8, 10);
+        let randomProgress = Phaser.Math.Between(5, 9);
         this.enemyProgressBarMask.y -= randomProgress;
       },
       callbackScope: this,
@@ -75,11 +84,11 @@ class LevelOne extends Phaser.Scene {
     });
 
     //food to be sold
-    new FoodMenu(this, menuList, foodMenu, menu);
+    this.foodMenuDisplay = new FoodMenu(this, menuList, foodMenu, menu, demands);
 
     this.input.on("drag", function(pointer, obj, dragX, dragY) {
       obj.setPosition(dragX, dragY);
-    });
+    }, this);
 
     this.input.on("drop", function(pointer, obj, dropZone) {
       if (obj.name === dropZone.name) {
@@ -89,10 +98,21 @@ class LevelOne extends Phaser.Scene {
         coins += 1
         obj.destroy();
         dropZone.destroy();
-        score += 5;
-        console.log(score)
+        score += 350;
+        
         if (score < goal) {
-          fullProgressBarMask.y -= 10
+          fullProgressBarMask.y -= 350
+        }
+        if (score > goal) {
+          this.scene.pause();
+          villagers.children.each((villager) => villager.destroy())
+          foodMenu.children.each((menu) => menu.destroy())
+          demands.children.each((demand) => demand.destroy())
+          foodOrders.children.each((food) => food.destroy())
+          character.destroy()
+          enemy.destroy()
+          background.setAlpha(0.5)
+          this.scene.launch('levelOneSuccess')
         }
       } else if (obj.name != dropZone.name) {
         obj.destroy();
@@ -100,7 +120,9 @@ class LevelOne extends Phaser.Scene {
         score -= 5;
         fullProgressBarMask.y += 10
       }
-    });
+      console.log(score)
+    }, this);
+    console.log(score)
 
     this.time.addEvent({
       delay: Phaser.Math.Between(5000, 15000),
@@ -111,6 +133,7 @@ class LevelOne extends Phaser.Scene {
           this.game.renderer.height / 2 + 180,
           1
         );
+        villagers.add(villager)
         villager.setDepth(1).setInteractive();
       },
       callbackScope: this,
@@ -126,6 +149,7 @@ class LevelOne extends Phaser.Scene {
           this.game.renderer.height / 2 + 180,
           1
         );
+        villagers.add(villager)
         villager.flipX = true;
         villager.setDepth(1).setInteractive();
       },
@@ -133,5 +157,7 @@ class LevelOne extends Phaser.Scene {
       loop: true
     });
   }
+
+
 }
 

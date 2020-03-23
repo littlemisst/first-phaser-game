@@ -126,6 +126,9 @@ class LoadingScene extends Phaser.Scene {
     this.load.image("character", "assets/charLogo.png");
     this.load.image("enemy", "assets/enemy.png");
 
+    //recipe received
+    this.load.image('sparkle', "assets/sparkle.png")
+
 
     //animation of each villager
     this.load.spritesheet("villagerOne", "assets/villager1.png", {
@@ -143,6 +146,10 @@ class LoadingScene extends Phaser.Scene {
     this.load.spritesheet("villagerFour", "assets/villager4.png", {
       frameWidth: 51,
       frameHeight: 57
+    });
+    this.load.spritesheet("sparkles", "assets/sparkle.png", {
+      frameWidth: 198,
+      frameHeight: 200
     });
 
     //food menu
@@ -167,6 +174,63 @@ class LoadingScene extends Phaser.Scene {
     globalThis.music = this.sound.add('music', { loop: true})
     // globalThis.music.play()
     this.add.image(400, 300, "logo");
+  
+
+    this.anims.create({
+      key: "villager1",
+      frames: this.anims.generateFrameNumbers("villagerOne", {
+        start: 0,
+        end: 3,
+        first: 0
+      }),
+      frameRate: 6,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "villager2",
+      frames: this.anims.generateFrameNumbers("villagerTwo", {
+        start: 0,
+        end: 3,
+        first: 0
+      }),
+      frameRate: 6,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "villager3",
+      frames: this.anims.generateFrameNumbers("villagerThree", {
+        start: 0,
+        end: 3,
+        first: 0
+      }),
+      frameRate: 6,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "villager4",
+      frames: this.anims.generateFrameNumbers("villagerFour", {
+        start: 0,
+        end: 3,
+        first: 0
+      }),
+      frameRate: 6,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "sparkle",
+      frames: this.anims.generateFrameNumbers("sparkles", {
+        start: 0,
+        end: 3,
+        first: 0
+      }),
+      frameRate: 6,
+      repeat: -1
+    });
   }
+
 }
 

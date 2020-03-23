@@ -1,6 +1,7 @@
 const bibingkaPrice = 1500
 const putoCheesePrice = 1200
 const haloHaloPrice = 1000
+globalThis.coins = 10000
 
 class ShopScene extends Phaser.Scene {
   constructor() {
@@ -19,8 +20,9 @@ class ShopScene extends Phaser.Scene {
       if (coins > bibingkaPrice) {
         coins -= bibingkaPrice
         this.coinsText.setText(coins)
+      } else {
+        this.bibingka.setTint(0xFF7F50);
       }
-      this.bibingka.setTint(0xFF7F50);
     })
     this.bibingka.on('pointerup', () => this.bibingka.clearTint())
 
@@ -28,8 +30,9 @@ class ShopScene extends Phaser.Scene {
       if (coins > haloHaloPrice) {
         coins -= haloHaloPrice
         this.coinsText.setText(coins)
+      } else {
+        this.haloHalo.setTint(0xFF7F50);
       }
-      this.haloHalo.setTint(0xFF7F50);
     })
     this.haloHalo.on('pointerup', () => this.haloHalo.clearTint())
 
@@ -37,8 +40,9 @@ class ShopScene extends Phaser.Scene {
       if (coins > putoCheesePrice) {
         coins -= putoCheesePrice
         this.coinsText.setText(coins)
+      } else {
+        this.putoCheese.setTint(0xFF7F50);
       }
-      this.putoCheese.setTint(0xFF7F50);
     })
     this.putoCheese.on('pointerup', () => this.putoCheese.clearTint())
 
