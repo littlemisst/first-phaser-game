@@ -13,6 +13,7 @@ class MainGameLevels extends Phaser.Scene {
     this.load.image("mainBg", "./../scenes/assets/main screen bg.jpg");
     this.load.image("mainBgBorder", "./../scenes/assets/mainScreenBorder.png");
     this.load.image("mainCharacter", "./../scenes/assets/cart.png");
+    this.load.image("enemyCart", "./../scenes/assets/enemyCart.png")
     this.load.image(
       "fullProgressBar",
       "./../scenes/assets/fullprogressbar.png"
@@ -24,6 +25,10 @@ class MainGameLevels extends Phaser.Scene {
     this.load.image(
       "competitorProgressBar",
       "./../scenes/assets/competitor.png"
+    );
+    this.load.image(
+      "enemyEmptyProgressBar",
+      "./../scenes/assets/enemyEmptyprogressbar.png"
     );
     this.load.image("character", "./../scenes/assets/charLogo.png");
     this.load.image("enemy", "./../scenes/assets/enemy.png");

@@ -20,30 +20,36 @@ class MainGameScene extends EntityScene {
     scene.backgroundBorder = scene.add.image(0, 0, "mainBgBorder").setDepth(2);
     scene.backgroundBorder.setOrigin(0, 0);
 
-    new ProgressBar(scene, scene.game.renderer.width - 55, 'character')
-    new ProgressBar(scene, scene.game.renderer.width - 20, 'enemy')
+    new ProgressBar(scene, scene.game.renderer.width - 55, 'character', 'fullProgressBar')
+    new ProgressBar(scene, scene.game.renderer.width - 20, 'enemy', 'competitorProgressBar' )
 
-    scene.physics.add
-      .sprite(
-        scene.game.renderer.width / 2,
+    scene.add
+      .image(
+        scene.game.renderer.width / 2 - 100,
         scene.game.renderer.height / 2 + 100,
         "mainCharacter"
-      )
-      .setScale(0.8, 0.8)
-      .setInteractive();
+      ).setScale(0.8, 0.8)
+
+    scene.add
+      .image(
+        scene.game.renderer.width / 2 + 100,
+        scene.game.renderer.height / 2 + 100,
+        "enemyCart"
+      ).setScale(0.8, 0.8)
+  
   }
 }
 
 
 class ProgressBar extends EntityScene {
-  constructor(scene, x, logo) {
+  constructor(scene, x, logo, progressBar) {
     super(scene)
 
     scene.fullProgressBar = scene.add
     .image(
       x,
       scene.game.renderer.height / 2 + 100,
-      "fullProgressBar"
+      progressBar
     )
     .setDepth(2);
 

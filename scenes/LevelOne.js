@@ -43,32 +43,32 @@ class LevelOne extends Phaser.Scene {
     );
 
     //enemy progress bar
-    enemyProgressBar = this.add
+    this.enemyProgressBar = this.add
     .image(
       this.game.renderer.width - 20,
       this.game.renderer.height / 2 + 100,
-      "emptyProgressBar"
+      "enemyEmptyProgressBar"
     )
     .setDepth(2);
 
-    enemyProgressBarMask = this.add
+    this.enemyProgressBarMask = this.add
     .image(
       this.game.renderer.width - 20,
       this.game.renderer.height / 2 + 100,
-      "emptyProgressBar"
+      "enemyEmptyProgressBar"
     )
     .setDepth(2);
-    enemyProgressBarMask.visible = false;
-    enemyProgressBar.mask = new Phaser.Display.Masks.BitmapMask(
+    this.enemyProgressBarMask.visible = false;
+    this.enemyProgressBar.mask = new Phaser.Display.Masks.BitmapMask(
       this,
-      enemyProgressBarMask
+      this.enemyProgressBarMask
     );
 
     this.time.addEvent({
       delay: Phaser.Math.Between(3000, 5000),
       callback: function() {
-        let randomProgress = Phaser.Math.Between(5, 8);
-        enemyProgressBarMask.y -= randomProgress;
+        let randomProgress = Phaser.Math.Between(8, 10);
+        this.enemyProgressBarMask.y -= randomProgress;
       },
       callbackScope: this,
       loop: true
