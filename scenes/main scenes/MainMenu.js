@@ -5,18 +5,6 @@ class MainMenu extends Phaser.Scene {
     super("mainMenu");
   }
 
-  preload() {
-    this.load.image(
-      "background",
-      "./../scenes/assets/background.jpg"
-    );
-    this.load.image('logoMainScreen', './../scenes/assets/logo-for-main-screen.png' )
-    this.load.image('play', './../scenes/assets/play-logo.png')
-    this.load.image('shop', './../scenes/assets/shop-logo.png')
-    this.load.image('cookBook', './../scenes/assets/cookbooklogo.png')
-    this.load.image("soundOn", "./../scenes/assets/soundOn.png");
-    this.load.image("soundOff", "./../scenes/assets/soundOff.png");
-  }
 
   create() {
     this.background = this.add.image(0,0,'background').setDepth(0)

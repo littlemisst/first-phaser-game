@@ -3,8 +3,7 @@ class CookBookScene extends Phaser.Scene {
     super("cookBook");
   }
   preload() {
-    this.load.image("cookBookBg", "./../scenes/assets/cookbookmenu.jpg");
-    this.load.image("back", "./../scenes/assets/back.png");
+    
   }
   create() {
     this.background = this.add.image(0, 0, "cookBookBg").setDepth(0);

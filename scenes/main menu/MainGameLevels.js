@@ -2,58 +2,7 @@ class MainGameLevels extends Phaser.Scene {
   constructor() {
     super("mainGameLevels");
   }
-  preload() {
-    this.load.image("back", "./../scenes/assets/back.png");
-    this.load.image("levels", "./../scenes/assets/levels-for-main-screen.png");
-    this.load.image("levelOne", "./../scenes/assets/levelOne.png");
-    this.load.image("levelTwo", "./../scenes/assets/levelTwo.png");
-    this.load.image("levelThree", "./../scenes/assets/levelThree.png");
 
-    //scene for each level
-    this.load.image("mainBg", "./../scenes/assets/main screen bg.jpg");
-    this.load.image("mainBgBorder", "./../scenes/assets/mainScreenBorder.png");
-    this.load.image("mainCharacter", "./../scenes/assets/cart.png");
-    this.load.image("enemyCart", "./../scenes/assets/enemyCart.png")
-    this.load.image(
-      "fullProgressBar",
-      "./../scenes/assets/fullprogressbar.png"
-    );
-    this.load.image(
-      "emptyProgressBar",
-      "./../scenes/assets/emptyprogressbar.png"
-    );
-    this.load.image(
-      "competitorProgressBar",
-      "./../scenes/assets/competitor.png"
-    );
-    this.load.image(
-      "enemyEmptyProgressBar",
-      "./../scenes/assets/enemyEmptyprogressbar.png"
-    );
-    this.load.image("character", "./../scenes/assets/charLogo.png");
-    this.load.image("enemy", "./../scenes/assets/enemy.png");
-    this.load.image("back", "./../scenes/assets/back.png");
-
-
-    //animation of each villager
-    this.load.spritesheet("villagerOne", "./../scenes/assets/villager1.png", {
-      frameWidth: 37,
-      frameHeight: 60
-    });
-    this.load.spritesheet("villagerTwo", "./../scenes/assets/villager2.png", {
-      frameWidth: 35,
-      frameHeight: 57
-    });
-    this.load.spritesheet("villagerThree", "./../scenes/assets/villager3.png", {
-      frameWidth: 46,
-      frameHeight: 57
-    });
-    this.load.spritesheet("villagerFour", "./../scenes/assets/villager4.png", {
-      frameWidth: 51,
-      frameHeight: 57
-    });
-
-  }
   create() {
     this.background = this.add.image(0, 0, "background").setDepth(0);
     this.background.setOrigin(0, 0);

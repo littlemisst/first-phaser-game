@@ -6,18 +6,7 @@ class ShopScene extends Phaser.Scene {
   constructor() {
     super("shop");
   }
-  preload() {
-    this.load.image("shopBg", "./../scenes/assets/shopBg.jpg");
-    this.load.image("back", "./../scenes/assets/back.png");
-    this.load.image("coins", "./../scenes/assets/coins.png");
-    this.load.image('bibingka', "./../scenes/assets/menuBibingka.png")
-    this.load.image('haloHalo', "./../scenes/assets/menuHalo2x.png")
-    this.load.image('putoCheese', "./../scenes/assets/menuPutoCheese.png")
-    this.load.image('bibingkaPrice', "./../scenes/assets/bibingkaPrice.png")
-    this.load.image('haloHaloPrice', "./../scenes/assets/halohaloPrice.png")
-    this.load.image('putoCheesePrice', "./../scenes/assets/putoCheesePrice.png")
 
-  }
   create() {
     this.background = this.add.image(0, 0, "shopBg").setDepth(0);
     this.background.setOrigin(0, 0);
