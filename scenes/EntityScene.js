@@ -109,14 +109,14 @@ class Recipe extends EntityScene {
     scene.tweens.add({
       targets: target,
       x: scene.game.renderer.width/2,
-      duration: 5000,
+      duration: 3000,
       ease: 'Elastic',
       easeParams: [ 1.5, 0.5 ],
       delay: 0
     });
 
     scene.time.addEvent({
-      delay: 4000,
+      delay: 2000,
       callback: function() {
         scene.sparkle = scene.add.sprite(scene.game.renderer.width/2, scene.game.renderer.height/2, 'sparkles')
         scene.sparkle.play('sparkle')

@@ -1,7 +1,7 @@
 let food;
 const villagerType = ["villager1", "villager2", 'villager3', 'villager4'];
 const types = ["villagerOne", "villagerTwo", "villagerThree", "villagerFour"];
-const orders = ["potatoKwekKwek", "kamoteLumpia"];
+const orders = ["potatoKwekKwek", "kamoteLumpia", "putoCheese"];
 
 class Entity extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, key, type) {

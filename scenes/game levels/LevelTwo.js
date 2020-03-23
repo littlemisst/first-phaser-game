@@ -1,24 +1,13 @@
-let goal,
-  emptyProgressBar,
-  fullProgressBarMask,
-  enemyProgressBar,
-  enemyProgressBarMask,
-  menu, foodMenu,
-  score,
-  villagers,
-  demands, foodOrders
 
 
 
-
-
-class LevelOne extends Phaser.Scene {
+class LevelTwo extends Phaser.Scene {
   constructor() {
-    super('levelOne');
+    super('levelTwo');
   }
 
   create() {
-    this.menuList = ["potatoKwekKwekMenu", "kamoteLumpiaMenu"];
+    this.menuList = ["potatoKwekKwekMenu", "kamoteLumpiaMenu", "putoCheeseMenu"];
     villagers = this.add.group()
     foodMenu = this.add.group()
     demands = this.add.group()
@@ -74,7 +63,7 @@ class LevelOne extends Phaser.Scene {
     );
 
     this.enemyProgress = this.time.addEvent({
-      delay: Phaser.Math.Between(3000, 5000),
+      delay: Phaser.Math.Between(4000, 5000),
       callback: function() {
         let randomProgress = Phaser.Math.Between(5, 9);
         this.enemyProgressBarMask.y -= randomProgress;
@@ -98,7 +87,7 @@ class LevelOne extends Phaser.Scene {
         coins += 1
         obj.destroy();
         dropZone.destroy();
-        score += 350;
+        score += 10;
         
         if (score < goal) {
           fullProgressBarMask.y -= 10
@@ -134,13 +123,13 @@ class LevelOne extends Phaser.Scene {
     }, this);
 
     this.rightVillagersEvent = this.time.addEvent({
-      delay: Phaser.Math.Between(5000, 10000),
+      delay: Phaser.Math.Between(5000, 15000),
       callback: function() {
         let villager = new VillagerFromRight(
           this,
           this.game.renderer.width,
           this.game.renderer.height / 2 + 180,
-          1
+          2
         );
         villagers.add(villager)
         villager.setDepth(1).setInteractive();
@@ -150,13 +139,13 @@ class LevelOne extends Phaser.Scene {
     });
 
     this.leftVillagersEvent = this.time.addEvent({
-      delay: Phaser.Math.Between(5000, 10000),
+      delay: Phaser.Math.Between(5000, 15000),
       callback: function() {
         let villager = new VillagerFromLeft(
           this,
           0,
           this.game.renderer.height / 2 + 180,
-          1
+          2
         );
         villagers.add(villager)
         villager.flipX = true;

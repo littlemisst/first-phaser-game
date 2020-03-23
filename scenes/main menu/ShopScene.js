@@ -14,7 +14,7 @@ class ShopScene extends Phaser.Scene {
 
     this.bibingka = this.add.image(this.game.renderer.width / 2 + 120, this.game.renderer.height / 2, "bibingka").setDepth(1).setScale(0.5).setInteractive();
     this.haloHalo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2, "haloHalo").setDepth(1).setScale(0.5).setInteractive();
-    this.putoCheese = this.add.image(this.game.renderer.width / 2 - 120, this.game.renderer.height / 2, "putoCheese").setDepth(1).setScale(0.5).setInteractive();
+    this.putoCheese = this.add.image(this.game.renderer.width / 2 - 120, this.game.renderer.height / 2, "putoCheeseMenu").setDepth(1).setScale(0.5).setInteractive();
 
     this.bibingka.on('pointerdown', () => {
       if (coins > bibingkaPrice) {

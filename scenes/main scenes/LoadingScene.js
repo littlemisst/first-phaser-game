@@ -87,7 +87,6 @@ class LoadingScene extends Phaser.Scene {
     this.load.image("coins", "assets/coins.png");
     this.load.image('bibingka', "assets/menuBibingka.png")
     this.load.image('haloHalo', "assets/menuHalo2x.png")
-    this.load.image('putoCheese', "assets/menuPutoCheese.png")
     this.load.image('bibingkaPrice', "assets/bibingkaPrice.png")
     this.load.image('haloHaloPrice', "assets/halohaloPrice.png")
     this.load.image('putoCheesePrice', "assets/putoCheesePrice.png")
@@ -129,6 +128,8 @@ class LoadingScene extends Phaser.Scene {
     //recipe received
     this.load.image('sparkle', "assets/sparkle.png")
 
+    this.load.image('nextLevel', "assets/nextLevel.png")
+
 
     //animation of each villager
     this.load.spritesheet("villagerOne", "assets/villager1.png", {
@@ -155,6 +156,7 @@ class LoadingScene extends Phaser.Scene {
     //food menu
     this.load.image("potatoKwekKwek", "assets/potatoKwekKwek.png");
     this.load.image("kamoteLumpia", "assets/kamoteLumpia.png");
+    this.load.image("putoCheese", "assets/putoCheese.png")
     this.load.image("angry", "assets/angry.png");
     this.load.image(
       "potatoKwekKwekMenu",
@@ -164,6 +166,7 @@ class LoadingScene extends Phaser.Scene {
       "kamoteLumpiaMenu",
       "assets/menuKamoteLumpia.png"
     );
+    this.load.image('putoCheeseMenu', "assets/menuPutoCheese.png")
 
     //audio
     this.load.audio('music', ['./../assets/bg-music.mp3']) 

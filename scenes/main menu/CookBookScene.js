@@ -1,3 +1,4 @@
+globalThis.recipes = []
 class CookBookScene extends Phaser.Scene {
   constructor() {
     super("cookBook");
