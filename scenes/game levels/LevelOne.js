@@ -6,14 +6,14 @@ class LevelOne extends Phaser.Scene {
   create() {
     currentLevel = 'levelOne'
     menuList = ["potatoKwekKwekMenu", "kamoteLumpiaMenu"];
+    point = 10
+    ordersCount = Math.round(goal/point)
     villagers = this.add.group()
     foodMenu = this.add.group()
     demands = this.add.group()
     foodOrders = this.add.group()
     complaints = this.add.group()
     enemyPointsGained = this.add.group()
-    score = 0
-    enemyScore = 0
 
     this.baseScene = new MainGameScene(this)
 
@@ -21,7 +21,7 @@ class LevelOne extends Phaser.Scene {
     emptyProgressBar = this.add
     .image(
       this.game.renderer.width - 55,
-      this.game.renderer.height / 2 + 100,
+      this.game.renderer.height / 2 + 40,
       "emptyProgressBar"
     )
     .setDepth(2);
@@ -29,7 +29,7 @@ class LevelOne extends Phaser.Scene {
     fullProgressBarMask = this.add
     .image(
       this.game.renderer.width - 55,
-      this.game.renderer.height / 2 + 100,
+      this.game.renderer.height / 2 + 40,
       "emptyProgressBar"
     )
     .setDepth(2);
@@ -44,7 +44,7 @@ class LevelOne extends Phaser.Scene {
     this.enemyProgressBar = this.add
     .image(
       this.game.renderer.width - 20,
-      this.game.renderer.height / 2 + 100,
+      this.game.renderer.height / 2 + 40,
       "enemyEmptyProgressBar"
     )
     .setDepth(2);
@@ -52,7 +52,7 @@ class LevelOne extends Phaser.Scene {
     this.enemyProgressBarMask = this.add
     .image(
       this.game.renderer.width - 20,
-      this.game.renderer.height / 2 + 100,
+      this.game.renderer.height / 2 + 40,
       "enemyEmptyProgressBar"
     )
     .setDepth(2);
@@ -62,7 +62,7 @@ class LevelOne extends Phaser.Scene {
       this.enemyProgressBarMask
     );
 
-    let randomProgress = Phaser.Math.Between(200, 250);
+    let randomProgress = Phaser.Math.Between(8, 10);
     this.enemyProgress = this.time.addEvent({
       delay: Phaser.Math.Between(3000, 5000),
       callback: function() {
@@ -85,6 +85,7 @@ class LevelOne extends Phaser.Scene {
           this.rightVillagersEvent.remove()
           this.leftVillagersEvent.remove()
           this.enemyProgress.remove()
+          home.destroy()
           this.scene.launch('gameOver')
         }
         this.time.delayedCall(800,()=>enemyPoints.destroy(), [], this)
@@ -113,11 +114,12 @@ class LevelOne extends Phaser.Scene {
         let eat =  this.sound.add('eatSound', { loop: false})
         eat.play()
 
-        score += 280;
-        console.log(score)
+        score += point;
+        ordersCount -= 1
+        ordersCountText.setText(ordersCount)
         
         if (score <= goal) {
-          fullProgressBarMask.y -= 10
+          fullProgressBarMask.y -= point
         }
         if (score > goal) {
           this.scene.pause();

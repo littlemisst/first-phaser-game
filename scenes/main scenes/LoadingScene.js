@@ -1,12 +1,21 @@
-let goal = 280,
-  emptyProgressBar,
-  fullProgressBarMask,
-  enemyProgressBar,
-  enemyProgressBarMask,
-  food, foodMenu,
-  score, order,
-  villagers,
-  demands, foodOrders, complaints, timerEvent, enemyScore, enemyPointsGained, menuList = [], currentLevel = ''
+//UI
+let background, emptyProgressBar,
+fullProgressBarMask,
+enemyProgressBar,
+enemyProgressBarMask,
+character, enemy, back, home, ordersCountText
+
+//game levels
+let goal = 288,
+point = 0,
+ordersCount = 0,
+menuList = [],
+currentLevel = '',
+score = 0, enemyScore = 0,
+food, order
+
+//groups
+let foodMenu, villagers, demands, foodOrders, complaints, timerEvent, enemyPointsGained
 
 class LoadingScene extends Phaser.Scene {
   constructor() {
@@ -64,7 +73,6 @@ class LoadingScene extends Phaser.Scene {
       });
 
     this.load.on("complete", function() {
-      console.log("complete");
       progressBar.destroy();
       progressBox.destroy();
       loadingText.destroy()
@@ -135,6 +143,8 @@ class LoadingScene extends Phaser.Scene {
     this.load.image("character", "assets/charLogo.png");
     this.load.image("enemy", "assets/enemy.png");
     this.load.image("angry", "assets/angry.png")
+    this.load.image("home", "assets/home.png")
+    this.load.image('ordersCountBg', "assets/ordersCount.png" )
 
     //gameOver
     this.load.image("gameOver", "assets/gameOver.png")
@@ -196,6 +206,7 @@ class LoadingScene extends Phaser.Scene {
     this.load.audio('tagalSound', ['assets/tagal.mp3']) 
     this.load.audio('eatSound', ['assets/eat.mp3']) 
     this.load.audio('gameOverSound', ['assets/gameOverSound.mp3']) 
+    this.load.audio('nextLevelSound', ['assets/nextLevelSound.mp3']) 
   }
 
   create() {

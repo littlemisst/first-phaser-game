@@ -10,11 +10,11 @@ class EntityScene extends Phaser.GameObjects.Sprite {
 class MainGameScene extends EntityScene {
   constructor(scene){
     super(scene)
-  
-    scene.back = scene.add.image(scene.game.renderer.width - 35, scene.game.renderer.height - 30, "back").setScale(0.4).setDepth(3).setInteractive()
-    scene.back.on('pointerdown', () => scene.scene.start('mainMenu'), this)
+    scene.order = scene.add.image(scene.game.renderer.width - 50, 70, "ordersCountBg").setScale(0.7).setDepth(3)
+    ordersCountText = scene.add.text(scene.game.renderer.width - 70, 70, ordersCount, { font: "40px Arial", fill: "#964B00", align: "center"}).setDepth(5)    
     
-    globalThis.background = scene.add.image(0, 0, "mainBg").setDepth(0);
+    
+    background = scene.add.image(0, 0, "mainBg").setDepth(0);
     background.setOrigin(0, 0);
 
     scene.backgroundBorder = scene.add.image(0, 0, "mainBgBorder").setDepth(2);
@@ -23,14 +23,18 @@ class MainGameScene extends EntityScene {
     new ProgressBar(scene, scene.game.renderer.width - 55, 'character', 'fullProgressBar')
     new ProgressBar(scene, scene.game.renderer.width - 20, 'enemy', 'competitorProgressBar' )
 
-    globalThis.character = scene.add
+    home = scene.add.image(scene.game.renderer.width - 40, scene.game.renderer.height - 50, "home").setScale(0.2).setDepth(3).setInteractive()
+    home.on('pointerdown', () => scene.scene.start('mainMenu'), this)
+    
+
+    character = scene.add
       .image(
         scene.game.renderer.width / 2 - 200,
         scene.game.renderer.height / 2 + 100,
         "mainCharacter"
       ).setScale(0.8, 0.8)
 
-    globalThis.enemy = scene.add
+    enemy = scene.add
       .image(
         scene.game.renderer.width / 2 + 100,
         scene.game.renderer.height / 2 + 100,
@@ -48,7 +52,7 @@ class ProgressBar extends EntityScene {
     scene.fullProgressBar = scene.add
     .image(
       x,
-      scene.game.renderer.height / 2 + 100,
+      scene.game.renderer.height / 2 + 40,
       progressBar
     )
     .setDepth(2);
@@ -56,7 +60,7 @@ class ProgressBar extends EntityScene {
     scene.characterLogo = scene.add
     .image(
       x,
-      scene.game.renderer.height / 2 + 240,
+      scene.game.renderer.height / 2 + 170,
       logo
     )
     .setDepth(3)
@@ -120,6 +124,9 @@ class Recipe extends EntityScene {
       callback: function() {
         scene.sparkle = scene.add.sprite(scene.game.renderer.width/2, scene.game.renderer.height/2, 'sparkles')
         scene.sparkle.play('sparkle')
+
+        let congrats =  scene.sound.add('nextLevelSound', { loop: false})
+        congrats.play()
       },
       callbackScope: this,
       loop: false
