@@ -20,7 +20,12 @@ class MainGameLevels extends Phaser.Scene {
     } , this);
 
     this.levelThree = this.add.image(this.game.renderer.width / 2 + 150, this.game.renderer.height / 2 + 50, "levelThree").setDepth(1).setScale(0.3)
-    
+    this.levelThree.on('pointerdown', function() {
+      if (recipes.includes('halo2x')) {
+        this.scene.start('levelThree')
+      }
+    } , this);
+
     this.back = this.add
       .image(
         this.game.renderer.width - 100,
