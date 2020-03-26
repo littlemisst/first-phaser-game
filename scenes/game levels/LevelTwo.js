@@ -12,6 +12,7 @@ class LevelTwo extends Phaser.Scene {
     foodMenu = this.add.group()
     demands = this.add.group()
     foodOrders = this.add.group()
+    complaints = this.add.group()
     score = 0
     goal = 300
 
@@ -98,6 +99,7 @@ class LevelTwo extends Phaser.Scene {
           foodMenu.children.each((menu) => menu.destroy())
           demands.children.each((demand) => demand.destroy())
           foodOrders.children.each((food) => food.destroy())
+          complaints.children.each((complain) => complain.destroy())
           character.destroy()
           enemy.destroy()
           background.setAlpha(0.5)
@@ -106,7 +108,7 @@ class LevelTwo extends Phaser.Scene {
           this.enemyProgress.remove()
           this.scene.launch('levelOneSuccess')
           this.time.addEvent({
-            delay: 3000,
+            delay: 100,
             callback: function() {
               this.scene.switch('mainGameLevels')
             },

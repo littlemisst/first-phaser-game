@@ -1,3 +1,13 @@
+let goal = 280,
+  emptyProgressBar,
+  fullProgressBarMask,
+  enemyProgressBar,
+  enemyProgressBarMask,
+  menu, foodMenu,
+  score,
+  villagers,
+  demands, foodOrders, complaints, timerEvent, enemyScore
+
 class LoadingScene extends Phaser.Scene {
   constructor() {
     super("loading");
@@ -124,10 +134,10 @@ class LoadingScene extends Phaser.Scene {
     );
     this.load.image("character", "assets/charLogo.png");
     this.load.image("enemy", "assets/enemy.png");
+    this.load.image("angry", "assets/angry.png")
 
     //recipe received
     this.load.image('sparkle', "assets/sparkle.png")
-
     this.load.image('nextLevel', "assets/nextLevel.png")
 
 
@@ -152,6 +162,14 @@ class LoadingScene extends Phaser.Scene {
       frameWidth: 198,
       frameHeight: 200
     });
+    this.load.spritesheet("complain", "assets/complain.png", {
+      frameWidth: 100,
+      frameHeight: 100
+    });
+    this.load.spritesheet("enemyPoints", "assets/enemyPoints.png", {
+      frameWidth: 49,
+      frameHeight: 53
+    });
 
     //food menu
     this.load.image("potatoKwekKwek", "assets/potatoKwekKwek.png");
@@ -169,8 +187,10 @@ class LoadingScene extends Phaser.Scene {
     this.load.image('putoCheeseMenu', "assets/menuPutoCheese.png")
 
     //audio
-    this.load.audio('music', ['./../assets/bg-music.mp3']) 
-
+    this.load.audio('music', ['assets/bg-music.mp3']) 
+    this.load.audio('enemyScore', ['assets/enemyScore.mp3']) 
+    this.load.audio('tagalSound', ['assets/tagal.mp3']) 
+    this.load.audio('eatSound', ['assets/eat.mp3']) 
   }
 
   create() {
@@ -233,6 +253,29 @@ class LoadingScene extends Phaser.Scene {
       frameRate: 6,
       repeat: -1
     });
+
+    this.anims.create({
+      key: "tagal",
+      frames: this.anims.generateFrameNumbers("complain", {
+        start: 0,
+        end: 3,
+        first: 0
+      }),
+      frameRate: 6,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "enemyScores",
+      frames: this.anims.generateFrameNumbers("enemyPoints", {
+        start: 0,
+        end: 3,
+        first: 0
+      }),
+      frameRate: 6,
+      repeat: -1
+    });
+
   }
 
 }

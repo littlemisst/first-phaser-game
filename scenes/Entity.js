@@ -43,14 +43,32 @@ class FoodOrder extends Entity {
     super(scene, x, y, order);
     this.body.setVelocityX(velocity);
     this.setInteractive({dropZone: true}).setName(order+'Menu')
-  
-    scene.time.delayedCall(
-      10000,
-      function(obj) {
+
+    let width;
+    if (x == 0) {
+      width = 200
+      x = 200
+    } else {
+      width = -200
+    }
+
+    let random = Phaser.Math.Between(x/2, x/2 + width)
+
+    timerEvent = scene.time.addEvent({
+      delay: 10000,
+      callback: function() {
         this.destroy();
+        let complain = scene.add.sprite(random, y - 100, "complain")
+        complain.play('tagal')
+        complaints.add(complain)
+        let soundFx =  scene.sound.add('tagalSound', { loop: false})
+        soundFx.play()
+
+        scene.time.delayedCall(800,()=>complain.destroy(), [], this)
       },
-      [],
-      this
-    );
+      callbackScope: this,
+      loop: false
+    });
+    
   }
 }

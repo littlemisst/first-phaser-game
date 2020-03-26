@@ -12,7 +12,7 @@ class MainGameScene extends EntityScene {
     super(scene)
   
     scene.back = scene.add.image(scene.game.renderer.width - 35, scene.game.renderer.height - 30, "back").setScale(0.4).setDepth(3).setInteractive()
-    scene.back.on('pointerdown', () => scene.scene.switch('mainMenu'), this)
+    scene.back.on('pointerdown', () => scene.scene.start('mainMenu'), this)
     
     globalThis.background = scene.add.image(0, 0, "mainBg").setDepth(0);
     background.setOrigin(0, 0);
@@ -25,7 +25,7 @@ class MainGameScene extends EntityScene {
 
     globalThis.character = scene.add
       .image(
-        scene.game.renderer.width / 2 - 100,
+        scene.game.renderer.width / 2 - 200,
         scene.game.renderer.height / 2 + 100,
         "mainCharacter"
       ).setScale(0.8, 0.8)
@@ -124,6 +124,23 @@ class Recipe extends EntityScene {
       callbackScope: this,
       loop: false
     });
+  }
+}
+
+
+class RemoveEntities extends EntityScene {
+  constructor(scene) {
+    super(scene)
+
+    villagers.children.each((villager) => villager.destroy())
+    foodMenu.children.each((menu) => menu.destroy())
+    demands.children.each((demand) => demand.destroy())
+    foodOrders.children.each((food) => food.destroy())
+    complaints.children.each((complain) => complain.destroy())
+    character.destroy()
+    enemy.destroy()
+    background.setAlpha(0.5)
+    
   }
 }
 

@@ -1,17 +1,3 @@
-let goal,
-  emptyProgressBar,
-  fullProgressBarMask,
-  enemyProgressBar,
-  enemyProgressBarMask,
-  menu, foodMenu,
-  score,
-  villagers,
-  demands, foodOrders
-
-
-
-
-
 class LevelOne extends Phaser.Scene {
   constructor() {
     super('levelOne');
@@ -23,8 +9,9 @@ class LevelOne extends Phaser.Scene {
     foodMenu = this.add.group()
     demands = this.add.group()
     foodOrders = this.add.group()
+    complaints = this.add.group()
     score = 0
-    goal = 300
+    enemyScore = 0
 
     this.baseScene = new MainGameScene(this)
 
@@ -73,11 +60,26 @@ class LevelOne extends Phaser.Scene {
       this.enemyProgressBarMask
     );
 
+    let randomProgress = Phaser.Math.Between(5, 9);
     this.enemyProgress = this.time.addEvent({
       delay: Phaser.Math.Between(3000, 5000),
       callback: function() {
-        let randomProgress = Phaser.Math.Between(5, 9);
         this.enemyProgressBarMask.y -= randomProgress;
+
+        let randomX = Phaser.Math.Between(enemy.x - 90, enemy.x + 90);
+        let enemyPoints = this.add.sprite(randomX, enemy.y - 100, "enemyPoints").setScale(0.8)
+        enemyPoints.play('enemyScores')
+
+        let soundFx =  this.sound.add('enemyScore', { loop: false})
+        soundFx.play()
+
+        enemyScore += randomProgress
+        console.log(enemyScore)
+
+        if (enemyScore >= goal) {
+          console.log('gameOver!')
+        }
+        this.time.delayedCall(800,()=>enemyPoints.destroy(), [], this)
       },
       callbackScope: this,
       loop: true
@@ -98,26 +100,26 @@ class LevelOne extends Phaser.Scene {
         coins += 1
         obj.destroy();
         dropZone.destroy();
-        score += 350;
+        timerEvent.remove()
+
+        let eat =  this.sound.add('eatSound', { loop: false})
+        eat.play()
+
+        score += 280;
+        console.log(score)
         
-        if (score < goal) {
+        if (score <= goal) {
           fullProgressBarMask.y -= 10
         }
         if (score > goal) {
           this.scene.pause();
-          villagers.children.each((villager) => villager.destroy())
-          foodMenu.children.each((menu) => menu.destroy())
-          demands.children.each((demand) => demand.destroy())
-          foodOrders.children.each((food) => food.destroy())
-          character.destroy()
-          enemy.destroy()
-          background.setAlpha(0.5)
+          new RemoveEntities(this)
           this.rightVillagersEvent.remove()
           this.leftVillagersEvent.remove()
           this.enemyProgress.remove()
           this.scene.launch('levelOneSuccess')
           this.time.addEvent({
-            delay: 3000,
+            delay: 100,
             callback: function() {
               this.scene.switch('mainGameLevels')
             },
