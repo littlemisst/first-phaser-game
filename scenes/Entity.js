@@ -1,6 +1,6 @@
 const villagerType = ["villager1", "villager2", 'villager3', 'villager4'];
 const types = ["villagerOne", "villagerTwo", "villagerThree", "villagerFour"];
-const orders = ["potatoKwekKwek", "kamoteLumpia", "putoCheese"];
+const orders = ["tubig", "potatoKwekKwek", "kamoteLumpia", "sagotGulaman", "putoCheese", "bibingka", "halo2x"];
 
 class Entity extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, key, type) {
@@ -38,7 +38,7 @@ class VillagerFromRight extends Entity {
 
 class FoodOrder extends Entity {
   constructor(scene, x, y, velocity, level) {
-    const order = orders[Phaser.Math.Between(0, level)];
+    const order = orders[Phaser.Math.Between(0, level+1)];
     super(scene, x, y, order);
     this.body.setVelocityX(velocity);
     this.setInteractive({dropZone: true}).setName(order+'Menu')

@@ -165,7 +165,7 @@ class LoadingScene extends Phaser.Scene {
       frameHeight: 57
     });
     this.load.spritesheet("villagerThree", "assets/villager3.png", {
-      frameWidth: 46,
+      frameWidth: 45,
       frameHeight: 57
     });
     this.load.spritesheet("villagerFour", "assets/villager4.png", {
@@ -184,12 +184,17 @@ class LoadingScene extends Phaser.Scene {
       frameWidth: 49,
       frameHeight: 53
     });
-
+    
     //food menu
+    this.load.image("tubig", "assets/tubig.png");
+    this.load.image("sagotGulaman", "assets/gulaman.png");
     this.load.image("potatoKwekKwek", "assets/potatoKwekKwek.png");
     this.load.image("kamoteLumpia", "assets/kamoteLumpia.png");
     this.load.image("putoCheese", "assets/putoCheese.png")
-    this.load.image("angry", "assets/angry.png");
+    this.load.image("halo2x", "assets/halohalo.png")
+    
+    this.load.image("tubigMenu", "assets/menuTubig.png");
+    this.load.image("sagotGulamanMenu", "assets/menuSagotGulaman.png");
     this.load.image(
       "potatoKwekKwekMenu",
       "assets/menuPotatoKwekKwek.png"
@@ -199,6 +204,8 @@ class LoadingScene extends Phaser.Scene {
       "assets/menuKamoteLumpia.png"
     );
     this.load.image('putoCheeseMenu', "assets/menuPutoCheese.png")
+    this.load.image("halo2xMenu", "assets/menuHalo2x.png")
+    
 
     //audio
     this.load.audio('music', ['assets/bg-music.mp3']) 

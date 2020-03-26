@@ -5,14 +5,18 @@ class LevelTwo extends Phaser.Scene {
 
   create() {
     currentLevel = 'levelTwo'
-    menuList = ["potatoKwekKwekMenu", "kamoteLumpiaMenu", "putoCheeseMenu"];
+    menuList = ["tubigMenu", "potatoKwekKwekMenu", "kamoteLumpiaMenu", "sagotGulamanMenu", "putoCheeseMenu"];
+    score = 0
+    point = 290
+    ordersCount = Math.round(goal/point) + 1
+    let randomProgress = Phaser.Math.Between(8, 10);
+
     villagers = this.add.group()
     foodMenu = this.add.group()
     demands = this.add.group()
     foodOrders = this.add.group()
     complaints = this.add.group()
-    score = 0
-    goal = 300
+    enemyPointsGained = this.add.group()
 
     this.baseScene = new MainGameScene(this)
 
@@ -20,7 +24,7 @@ class LevelTwo extends Phaser.Scene {
     emptyProgressBar = this.add
     .image(
       this.game.renderer.width - 55,
-      this.game.renderer.height / 2 + 100,
+      this.game.renderer.height / 2 + 40,
       "emptyProgressBar"
     )
     .setDepth(2);
@@ -28,7 +32,7 @@ class LevelTwo extends Phaser.Scene {
     fullProgressBarMask = this.add
     .image(
       this.game.renderer.width - 55,
-      this.game.renderer.height / 2 + 100,
+      this.game.renderer.height / 2 + 40,
       "emptyProgressBar"
     )
     .setDepth(2);
@@ -43,7 +47,7 @@ class LevelTwo extends Phaser.Scene {
     this.enemyProgressBar = this.add
     .image(
       this.game.renderer.width - 20,
-      this.game.renderer.height / 2 + 100,
+      this.game.renderer.height / 2 + 40,
       "enemyEmptyProgressBar"
     )
     .setDepth(2);
@@ -51,7 +55,7 @@ class LevelTwo extends Phaser.Scene {
     this.enemyProgressBarMask = this.add
     .image(
       this.game.renderer.width - 20,
-      this.game.renderer.height / 2 + 100,
+      this.game.renderer.height / 2 + 40,
       "enemyEmptyProgressBar"
     )
     .setDepth(2);
@@ -61,18 +65,39 @@ class LevelTwo extends Phaser.Scene {
       this.enemyProgressBarMask
     );
 
+    
     this.enemyProgress = this.time.addEvent({
-      delay: Phaser.Math.Between(4000, 5000),
+      delay: Phaser.Math.Between(3000, 5000),
       callback: function() {
-        let randomProgress = Phaser.Math.Between(5, 9);
         this.enemyProgressBarMask.y -= randomProgress;
+
+        let randomX = Phaser.Math.Between(enemy.x - 90, enemy.x + 90);
+        let enemyPoints = this.add.sprite(randomX, enemy.y - 100, "enemyPoints").setScale(0.8)
+        enemyPoints.play('enemyScores')
+        enemyPointsGained.add(enemyPoints)
+
+        let soundFx =  this.sound.add('enemyScore', { loop: false})
+        soundFx.play()
+
+        enemyScore += randomProgress
+
+        if (enemyScore >= goal) {
+          this.scene.pause();
+          new RemoveEntities(this)
+          this.rightVillagersEvent.remove()
+          this.leftVillagersEvent.remove()
+          this.enemyProgress.remove()
+          home.destroy()
+          this.scene.launch('gameOver')
+        }
+        this.time.delayedCall(800,()=>enemyPoints.destroy(), [], this)
       },
       callbackScope: this,
       loop: true
     });
 
     //food to be sold
-    this.foodMenuDisplay = new FoodMenu(this, this.menuList, foodMenu, menu, demands);
+    this.foodMenuDisplay = new FoodMenu(this, menuList, foodMenu, food, demands);
 
     this.input.on("drag", function(pointer, obj, dragX, dragY) {
       obj.setPosition(dragX, dragY);
@@ -86,25 +111,25 @@ class LevelTwo extends Phaser.Scene {
         coins += 1
         obj.destroy();
         dropZone.destroy();
-        score += 10;
+        timerEvent.remove()
+
+        let eat =  this.sound.add('eatSound', { loop: false})
+        eat.play()
+
+        score += point;
+        ordersCount -= 1
+        ordersCountText.setText(ordersCount)
         
-        if (score < goal) {
-          fullProgressBarMask.y -= 10
+        if (score <= goal) {
+          fullProgressBarMask.y -= point
         }
         if (score > goal) {
           this.scene.pause();
-          villagers.children.each((villager) => villager.destroy())
-          foodMenu.children.each((menu) => menu.destroy())
-          demands.children.each((demand) => demand.destroy())
-          foodOrders.children.each((food) => food.destroy())
-          complaints.children.each((complain) => complain.destroy())
-          character.destroy()
-          enemy.destroy()
-          background.setAlpha(0.5)
+          new RemoveEntities(this)
           this.rightVillagersEvent.remove()
           this.leftVillagersEvent.remove()
           this.enemyProgress.remove()
-          this.scene.launch('levelOneSuccess')
+          this.scene.launch('levelTwoSuccess')
           this.time.addEvent({
             delay: 100,
             callback: function() {
@@ -123,7 +148,7 @@ class LevelTwo extends Phaser.Scene {
     }, this);
 
     this.rightVillagersEvent = this.time.addEvent({
-      delay: Phaser.Math.Between(5000, 15000),
+      delay: Phaser.Math.Between(7000, 8000),
       callback: function() {
         let villager = new VillagerFromRight(
           this,
@@ -139,7 +164,7 @@ class LevelTwo extends Phaser.Scene {
     });
 
     this.leftVillagersEvent = this.time.addEvent({
-      delay: Phaser.Math.Between(5000, 15000),
+      delay: Phaser.Math.Between(7000, 8000),
       callback: function() {
         let villager = new VillagerFromLeft(
           this,

@@ -5,9 +5,12 @@ class LevelOne extends Phaser.Scene {
 
   create() {
     currentLevel = 'levelOne'
-    menuList = ["potatoKwekKwekMenu", "kamoteLumpiaMenu"];
-    point = 10
+    menuList = ["tubigMenu", "potatoKwekKwekMenu", "kamoteLumpiaMenu"];
+    score = 0
+    point = 290
     ordersCount = Math.round(goal/point)
+    let randomProgress = Phaser.Math.Between(8, 10);
+
     villagers = this.add.group()
     foodMenu = this.add.group()
     demands = this.add.group()
@@ -62,9 +65,8 @@ class LevelOne extends Phaser.Scene {
       this.enemyProgressBarMask
     );
 
-    let randomProgress = Phaser.Math.Between(8, 10);
     this.enemyProgress = this.time.addEvent({
-      delay: Phaser.Math.Between(3000, 5000),
+      delay: Phaser.Math.Between(5000, 7000),
       callback: function() {
         this.enemyProgressBarMask.y -= randomProgress;
 
