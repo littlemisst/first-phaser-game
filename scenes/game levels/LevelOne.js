@@ -4,12 +4,14 @@ class LevelOne extends Phaser.Scene {
   }
 
   create() {
-    this.menuList = ["potatoKwekKwekMenu", "kamoteLumpiaMenu"];
+    currentLevel = 'levelOne'
+    menuList = ["potatoKwekKwekMenu", "kamoteLumpiaMenu"];
     villagers = this.add.group()
     foodMenu = this.add.group()
     demands = this.add.group()
     foodOrders = this.add.group()
     complaints = this.add.group()
+    enemyPointsGained = this.add.group()
     score = 0
     enemyScore = 0
 
@@ -60,7 +62,7 @@ class LevelOne extends Phaser.Scene {
       this.enemyProgressBarMask
     );
 
-    let randomProgress = Phaser.Math.Between(5, 9);
+    let randomProgress = Phaser.Math.Between(200, 250);
     this.enemyProgress = this.time.addEvent({
       delay: Phaser.Math.Between(3000, 5000),
       callback: function() {
@@ -69,6 +71,7 @@ class LevelOne extends Phaser.Scene {
         let randomX = Phaser.Math.Between(enemy.x - 90, enemy.x + 90);
         let enemyPoints = this.add.sprite(randomX, enemy.y - 100, "enemyPoints").setScale(0.8)
         enemyPoints.play('enemyScores')
+        enemyPointsGained.add(enemyPoints)
 
         let soundFx =  this.sound.add('enemyScore', { loop: false})
         soundFx.play()
@@ -77,7 +80,12 @@ class LevelOne extends Phaser.Scene {
         console.log(enemyScore)
 
         if (enemyScore >= goal) {
-          console.log('gameOver!')
+          this.scene.pause();
+          new RemoveEntities(this)
+          this.rightVillagersEvent.remove()
+          this.leftVillagersEvent.remove()
+          this.enemyProgress.remove()
+          this.scene.launch('gameOver')
         }
         this.time.delayedCall(800,()=>enemyPoints.destroy(), [], this)
       },
@@ -86,7 +94,7 @@ class LevelOne extends Phaser.Scene {
     });
 
     //food to be sold
-    this.foodMenuDisplay = new FoodMenu(this, this.menuList, foodMenu, menu, demands);
+    this.foodMenuDisplay = new FoodMenu(this, menuList, foodMenu, food, demands);
 
     this.input.on("drag", function(pointer, obj, dragX, dragY) {
       obj.setPosition(dragX, dragY);

@@ -66,20 +66,20 @@ class ProgressBar extends EntityScene {
 }
 
 class FoodMenu extends EntityScene {
-  constructor(scene, menuList, foodMenu, menu, demands) {
+  constructor(scene, menuList, foodMenu, food, demands) {
     super(scene)
 
     let initialPos = 62;
 
     for (let i = 0; i < menuList.length; i++) {
       let currentPos = initialPos;
-      menu = scene.add
+      food = scene.add
         .image(currentPos, 60, menuList[i])
         .setDepth(1)
         .setScale(0.5);
       initialPos += 90;
-      menu.setName(menuList[i]);
-      foodMenu.add(menu);
+     food.setName(menuList[i]);
+      foodMenu.add(food);
     }
 
     foodMenu.children.each(function(food) {
@@ -127,7 +127,6 @@ class Recipe extends EntityScene {
   }
 }
 
-
 class RemoveEntities extends EntityScene {
   constructor(scene) {
     super(scene)
@@ -137,10 +136,11 @@ class RemoveEntities extends EntityScene {
     demands.children.each((demand) => demand.destroy())
     foodOrders.children.each((food) => food.destroy())
     complaints.children.each((complain) => complain.destroy())
+    enemyPointsGained.children.each((point) => point.destroy())
     character.destroy()
     enemy.destroy()
     background.setAlpha(0.5)
-    
+
   }
 }
 

@@ -1,13 +1,11 @@
-
-
-
 class LevelTwo extends Phaser.Scene {
   constructor() {
     super('levelTwo');
   }
 
   create() {
-    this.menuList = ["potatoKwekKwekMenu", "kamoteLumpiaMenu", "putoCheeseMenu"];
+    currentLevel = 'levelTwo'
+    menuList = ["potatoKwekKwekMenu", "kamoteLumpiaMenu", "putoCheeseMenu"];
     villagers = this.add.group()
     foodMenu = this.add.group()
     demands = this.add.group()

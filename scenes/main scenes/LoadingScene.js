@@ -3,10 +3,10 @@ let goal = 280,
   fullProgressBarMask,
   enemyProgressBar,
   enemyProgressBarMask,
-  menu, foodMenu,
-  score,
+  food, foodMenu,
+  score, order,
   villagers,
-  demands, foodOrders, complaints, timerEvent, enemyScore
+  demands, foodOrders, complaints, timerEvent, enemyScore, enemyPointsGained, menuList = [], currentLevel = ''
 
 class LoadingScene extends Phaser.Scene {
   constructor() {
@@ -136,6 +136,10 @@ class LoadingScene extends Phaser.Scene {
     this.load.image("enemy", "assets/enemy.png");
     this.load.image("angry", "assets/angry.png")
 
+    //gameOver
+    this.load.image("gameOver", "assets/gameOver.png")
+    this.load.image("tryAgain", "assets/tryAgain.png")
+
     //recipe received
     this.load.image('sparkle', "assets/sparkle.png")
     this.load.image('nextLevel', "assets/nextLevel.png")
@@ -191,6 +195,7 @@ class LoadingScene extends Phaser.Scene {
     this.load.audio('enemyScore', ['assets/enemyScore.mp3']) 
     this.load.audio('tagalSound', ['assets/tagal.mp3']) 
     this.load.audio('eatSound', ['assets/eat.mp3']) 
+    this.load.audio('gameOverSound', ['assets/gameOverSound.mp3']) 
   }
 
   create() {

@@ -1,4 +1,3 @@
-let food;
 const villagerType = ["villager1", "villager2", 'villager3', 'villager4'];
 const types = ["villagerOne", "villagerTwo", "villagerThree", "villagerFour"];
 const orders = ["potatoKwekKwek", "kamoteLumpia", "putoCheese"];
@@ -19,9 +18,9 @@ class VillagerFromLeft extends Entity {
     super(scene, x, y, villagerType[index], types[index]);
     this.body.setVelocityX(Phaser.Math.Between(20, 40));
     this.anims.play(villagerType[index]);
-    food = new FoodOrder(this.scene, this.x, this.y - 60, this.body.velocity.x, level);
-    food.setScale(0.5, 0.5).setDepth(1);
-    foodOrders.add(food)
+    order = new FoodOrder(this.scene, this.x, this.y - 60, this.body.velocity.x, level);
+    order.setScale(0.5, 0.5).setDepth(1);
+    foodOrders.add(order)
   }
 }
 
@@ -31,9 +30,9 @@ class VillagerFromRight extends Entity {
     super(scene, x, y, villagerType[index], types[index]);
     this.body.setVelocityX(Phaser.Math.Between(-30, -50));
     this.anims.play(villagerType[index]);
-    food = new FoodOrder(this.scene, this.x, this.y - 60, this.body.velocity.x, level);
-    food.setScale(0.5, 0.5).setDepth(1);
-    foodOrders.add(food)
+    order = new FoodOrder(this.scene, this.x, this.y - 60, this.body.velocity.x, level);
+    order.setScale(0.5, 0.5).setDepth(1);
+    foodOrders.add(order)
   }
 }
 
