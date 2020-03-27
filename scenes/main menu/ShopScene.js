@@ -20,6 +20,7 @@ class ShopScene extends Phaser.Scene {
       if (coins > bibingkaPrice) {
         coins -= bibingkaPrice
         this.coinsText.setText(coins)
+        recipes.push("bibingka")
       } else {
         this.bibingka.setTint(0xFF7F50);
       }
@@ -30,6 +31,7 @@ class ShopScene extends Phaser.Scene {
       if (coins > haloHaloPrice) {
         coins -= haloHaloPrice
         this.coinsText.setText(coins)
+        recipes.push("halo2x")
       } else {
         this.haloHalo.setTint(0xFF7F50);
       }
@@ -40,6 +42,7 @@ class ShopScene extends Phaser.Scene {
       if (coins > putoCheesePrice) {
         coins -= putoCheesePrice
         this.coinsText.setText(coins)
+        recipes.push("putoCheese")
       } else {
         this.putoCheese.setTint(0xFF7F50);
       }

@@ -1,15 +1,16 @@
-class LevelTwo extends Phaser.Scene {
+class LevelThree extends Phaser.Scene {
   constructor() {
-    super('levelTwo');
+    super('levelThree');
   }
 
   create() {
-    currentLevel = 'levelTwo'
+    currentLevel = 'levelThree'
     menuList = ["tubigMenu", "potatoKwekKwekMenu", "kamoteLumpiaMenu", "sagotGulamanMenu", "putoCheeseMenu", "halo2xMenu"];
     score = 0
+    enemyScore = 0
     point = 5
     ordersCount = Math.round(goal/point) + 1
-    let randomProgress = Phaser.Math.Between(5, 7);
+    let randomProgress = Phaser.Math.Between(4, 7);
 
     villagers = this.add.group()
     foodMenu = this.add.group()
@@ -148,38 +149,39 @@ class LevelTwo extends Phaser.Scene {
     }, this);
 
     this.rightVillagersEvent = this.time.addEvent({
-      delay: Phaser.Math.Between(7000, 8000),
+      delay: Phaser.Math.Between(8000, 9000),
       callback: function() {
         let villager = new VillagerFromRight(
           this,
           this.game.renderer.width,
           this.game.renderer.height / 2 + 180,
-          2
+          3
         );
         villagers.add(villager)
-        villager.setDepth(1).setInteractive();
+        villager.setDepth(1)
       },
       callbackScope: this,
       loop: true
     });
 
     this.leftVillagersEvent = this.time.addEvent({
-      delay: Phaser.Math.Between(7000, 8000),
+      delay: Phaser.Math.Between(8000, 9000),
       callback: function() {
         let villager = new VillagerFromLeft(
           this,
           0,
           this.game.renderer.height / 2 + 180,
-          2
+          3
         );
         villagers.add(villager)
         villager.flipX = true;
-        villager.setDepth(1).setInteractive();
+        villager.setDepth(1)
       },
       callbackScope: this,
       loop: true
     });
 
+    this.specialVillagerEvent = new GenerateSpecialVillager(this)
   }
 }
 

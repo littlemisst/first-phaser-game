@@ -17,6 +17,9 @@ food, order
 //groups
 let foodMenu, villagers, demands, foodOrders, complaints, timerEvent, enemyPointsGained
 
+//global
+let recipes = []
+
 class LoadingScene extends Phaser.Scene {
   constructor() {
     super("loading");
@@ -145,6 +148,7 @@ class LoadingScene extends Phaser.Scene {
     this.load.image("angry", "assets/angry.png")
     this.load.image("home", "assets/home.png")
     this.load.image('ordersCountBg', "assets/ordersCount.png" )
+    this.load.image('key', "assets/key.png" )
 
     //gameOver
     this.load.image("gameOver", "assets/gameOver.png")
@@ -172,6 +176,10 @@ class LoadingScene extends Phaser.Scene {
       frameWidth: 51,
       frameHeight: 57
     });
+    this.load.spritesheet("specialVillager", "assets/villagerSpecial.png", {
+      frameWidth: 32,
+      frameHeight: 57
+    });
     this.load.spritesheet("sparkles", "assets/sparkle.png", {
       frameWidth: 198,
       frameHeight: 200
@@ -183,6 +191,10 @@ class LoadingScene extends Phaser.Scene {
     this.load.spritesheet("enemyPoints", "assets/enemyPoints.png", {
       frameWidth: 49,
       frameHeight: 53
+    });
+    this.load.spritesheet("confetti", "assets/confetti.png", {
+      frameWidth: 198,
+      frameHeight: 200
     });
     
     //food menu
@@ -267,6 +279,17 @@ class LoadingScene extends Phaser.Scene {
     });
 
     this.anims.create({
+      key: "villagerSpecial",
+      frames: this.anims.generateFrameNumbers("specialVillager", {
+        start: 0,
+        end: 3,
+        first: 0
+      }),
+      frameRate: 6,
+      repeat: -1
+    });
+
+    this.anims.create({
       key: "sparkle",
       frames: this.anims.generateFrameNumbers("sparkles", {
         start: 0,
@@ -280,6 +303,17 @@ class LoadingScene extends Phaser.Scene {
     this.anims.create({
       key: "tagal",
       frames: this.anims.generateFrameNumbers("complain", {
+        start: 0,
+        end: 3,
+        first: 0
+      }),
+      frameRate: 6,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "confettiDrop",
+      frames: this.anims.generateFrameNumbers("confetti", {
         start: 0,
         end: 3,
         first: 0

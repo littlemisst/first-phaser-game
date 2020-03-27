@@ -7,6 +7,7 @@ class LevelTwo extends Phaser.Scene {
     currentLevel = 'levelTwo'
     menuList = ["tubigMenu", "potatoKwekKwekMenu", "kamoteLumpiaMenu", "sagotGulamanMenu", "putoCheeseMenu"];
     score = 0
+    enemyScore = 0
     point = 290
     ordersCount = Math.round(goal/point) + 1
     let randomProgress = Phaser.Math.Between(8, 10);
@@ -157,7 +158,7 @@ class LevelTwo extends Phaser.Scene {
           2
         );
         villagers.add(villager)
-        villager.setDepth(1).setInteractive();
+        villager.setDepth(1)
       },
       callbackScope: this,
       loop: true
@@ -174,7 +175,7 @@ class LevelTwo extends Phaser.Scene {
         );
         villagers.add(villager)
         villager.flipX = true;
-        villager.setDepth(1).setInteractive();
+        villager.setDepth(1)
       },
       callbackScope: this,
       loop: true

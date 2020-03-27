@@ -134,6 +134,36 @@ class Recipe extends EntityScene {
   }
 }
 
+class GenerateSpecialVillager extends EntityScene {
+  constructor(scene) {
+    super(scene)
+    let randomSide = Phaser.Math.Between(0, 1)
+    this.specialVillagerEvent = scene.time.addEvent({
+      delay: Phaser.Math.Between(15000, 25000),
+      callback: function() {
+        if (randomSide == 0) {
+          let specialVillager = new SpecialVillager(scene, 0, scene.game.renderer.height / 2 + 180, Phaser.Math.Between(10, 50))
+          specialVillager.flipX = true
+          specialVillager.setDepth(1).setInteractive()
+          specialVillager.on('pointerdown', function() {
+            scene.scene.pause();
+            scene.scene.launch('keyReceived')
+          })
+        } else {
+          let specialVillager = new SpecialVillager(scene, scene.game.renderer.width, scene.game.renderer.height / 2 + 180, Phaser.Math.Between(-50, -10))
+          specialVillager.setDepth(1).setInteractive()
+          specialVillager.on('pointerdown', function() {
+            scene.scene.pause();
+            scene.scene.launch('keyReceived')
+          })
+        }
+      },
+      callbackScope: this,
+      loop: false
+    });
+  }
+}
+
 class RemoveEntities extends EntityScene {
   constructor(scene) {
     super(scene)

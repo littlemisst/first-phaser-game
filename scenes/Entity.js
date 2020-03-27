@@ -1,5 +1,5 @@
-const villagerType = ["villager1", "villager2", 'villager3', 'villager4'];
-const types = ["villagerOne", "villagerTwo", "villagerThree", "villagerFour"];
+const villagerType = ["villager1", "villager2", 'villager3', 'villager4', "villagerSpecial"];
+const types = ["villagerOne", "villagerTwo", "villagerThree", "villagerFour", "specialVillager"];
 const orders = ["tubig", "potatoKwekKwek", "kamoteLumpia", "sagotGulaman", "putoCheese", "bibingka", "halo2x"];
 
 class Entity extends Phaser.GameObjects.Sprite {
@@ -11,6 +11,18 @@ class Entity extends Phaser.GameObjects.Sprite {
     this.setData("type", type);
   }
 }
+
+class SpecialVillager extends Entity {
+  constructor(scene, x, y, velocity) {
+    super(scene, x, y, 'villagerSpecial', "specialVillager")
+    this.body.setVelocityX(velocity);
+    this.anims.play('villagerSpecial')
+    order = new FoodOrder(this.scene, this.x, this.y - 60, this.body.velocity.x, 3);
+    order.setScale(0.5, 0.5).setDepth(1);
+    foodOrders.add(order)
+  }
+}
+
 
 class VillagerFromLeft extends Entity {
   constructor(scene, x, y, level) {
