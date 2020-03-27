@@ -182,3 +182,17 @@ class RemoveEntities extends EntityScene {
 }
 
 
+class SlideTransition extends EntityScene {
+  constructor(scene, target, duration) {
+    super(scene)
+
+    scene.tweens.add({
+      targets: target,
+      x: scene.game.renderer.width/2,
+      duration: duration,
+      ease: 'Elastic',
+      easeParams: [ 1.5, 0.5 ],
+      delay: 0
+    });
+  }
+}

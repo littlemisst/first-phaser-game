@@ -4,7 +4,7 @@ class GameOver extends Phaser.Scene {
   }
 
   create(){
-    this.gameOver = this.add.image(0, this.game.renderer.height/2, 'gameOver').setDepth(3)
+    this.gameOver = this.add.image(0, this.game.renderer.height/2, 'gameOver').setDepth(5)
     this.tweens.add({
       targets: this.gameOver,
       x: this.game.renderer.width/2,

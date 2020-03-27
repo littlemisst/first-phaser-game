@@ -143,12 +143,18 @@ class LoadingScene extends Phaser.Scene {
       "enemyEmptyProgressBar",
       "assets/enemyEmptyprogressbar.png"
     );
+    this.load.image('skip', "assets/skip.png" )
+    this.load.image('next', "assets/next.png" )
     this.load.image("character", "assets/charLogo.png");
     this.load.image("enemy", "assets/enemy.png");
     this.load.image("angry", "assets/angry.png")
     this.load.image("home", "assets/home.png")
     this.load.image('ordersCountBg', "assets/ordersCount.png" )
     this.load.image('key', "assets/key.png" )
+    this.load.image('tutorial1', "assets/tutorialFrame1.png" )
+    this.load.image('tutorial2', "assets/tutorialFrame2.png" )
+    this.load.image('pangtabon', "assets/pangtabon.png" )
+    this.load.image('start', "assets/start.png" )
 
     //gameOver
     this.load.image("gameOver", "assets/gameOver.png")
@@ -195,6 +201,10 @@ class LoadingScene extends Phaser.Scene {
     this.load.spritesheet("confetti", "assets/confetti.png", {
       frameWidth: 198,
       frameHeight: 200
+    });
+    this.load.spritesheet("dialogue1", "assets/dialogueLevel1.png", {
+      frameWidth: 300,
+      frameHeight: 90
     });
     
     //food menu
@@ -293,7 +303,7 @@ class LoadingScene extends Phaser.Scene {
       key: "sparkle",
       frames: this.anims.generateFrameNumbers("sparkles", {
         start: 0,
-        end: 3,
+        end: 4,
         first: 0
       }),
       frameRate: 6,
@@ -326,11 +336,21 @@ class LoadingScene extends Phaser.Scene {
       key: "enemyScores",
       frames: this.anims.generateFrameNumbers("enemyPoints", {
         start: 0,
-        end: 3,
+        end: 5,
         first: 0
       }),
       frameRate: 6,
       repeat: -1
+    });
+
+    this.anims.create({
+      key: "firstDialogue",
+      frames: this.anims.generateFrameNumbers("dialogue1", {
+        start: 0,
+        end: 4,
+      }),
+      frameRate: 0.5,
+      repeat: 0
     });
 
   }

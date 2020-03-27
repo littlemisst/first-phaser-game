@@ -5,15 +5,10 @@ class KeyReceived extends Phaser.Scene {
 
   create() {
     recipes.push('key')
+    this.add.image(0, 0, 'pangtabon').setOrigin(0, 0)
     this.key = this.add.image(0, this.game.renderer.height / 2, "key").setInteractive();
-    this.tweens.add({
-      targets: this.key,
-      x: this.game.renderer.width/2,
-      duration: 3000,
-      ease: 'Elastic',
-      easeParams: [ 1.5, 0.5 ],
-      delay: 0
-    });
+
+    new SlideTransition(this, this.key, 3000)
 
     this.time.addEvent({
       delay: 2000,

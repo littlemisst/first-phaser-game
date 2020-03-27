@@ -10,7 +10,7 @@ class MainGameLevels extends Phaser.Scene {
     this.levels = this.add.image(this.game.renderer.width / 2, 100, "levels").setDepth(1)
 
     this.levelOne = this.add.image(this.game.renderer.width / 2 - 150, this.game.renderer.height / 2 + 50, "levelOne").setDepth(1).setScale(0.3).setInteractive()
-    this.levelOne.on('pointerdown', () => this.scene.start('levelOne'), this);
+    this.levelOne.on('pointerdown', () => this.scene.start('levelOneDialogue'), this);
 
     this.levelTwo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2 + 50, "levelTwo").setDepth(1).setScale(0.3).setInteractive()
     this.levelTwo.on('pointerdown', function() {
