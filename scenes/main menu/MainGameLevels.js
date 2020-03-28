@@ -10,11 +10,15 @@ class MainGameLevels extends Phaser.Scene {
     this.levels = this.add.image(this.game.renderer.width / 2, 100, "levels").setDepth(1)
 
     this.levelOne = this.add.image(this.game.renderer.width / 2 - 150, this.game.renderer.height / 2 + 50, "levelOne").setDepth(1).setScale(0.3).setInteractive()
-    this.levelOne.on('pointerdown', () => this.scene.start('levelOneDialogue'), this);
+    this.levelOne.on('pointerdown', function() {
+      click.play()
+      this.scene.start('levelOneDialogue')
+    } , this);
 
     this.levelTwo = this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2 + 50, "levelTwo").setDepth(1).setScale(0.3).setInteractive()
     this.levelTwo.on('pointerdown', function() {
       if (recipes.includes('putoCheese')) {
+        click.play()
         this.scene.start('levelTwo')
       }
     } , this);
@@ -22,6 +26,7 @@ class MainGameLevels extends Phaser.Scene {
     this.levelThree = this.add.image(this.game.renderer.width / 2 + 150, this.game.renderer.height / 2 + 50, "levelThree").setDepth(1).setScale(0.3).setInteractive()
     this.levelThree.on('pointerdown', function() {
       if (recipes.includes('halo2x')) {
+        click.play()
         this.scene.start('levelThreeDialogue')
       }
     } , this);
@@ -35,7 +40,9 @@ class MainGameLevels extends Phaser.Scene {
       .setScale(0.8)
       .setDepth(1)
       .setInteractive();
-    this.back.on("pointerdown", () => this.scene.switch("mainMenu"), this);
+    this.back.on("pointerdown", function() {
+      click.play()
+      this.scene.switch("mainMenu")}, this);
 
 
   } 

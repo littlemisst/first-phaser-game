@@ -8,6 +8,7 @@ class LevelOneSuccess extends Phaser.Scene {
     this.achievement = new Recipe(this, this.putoCheese)
     recipes.push('putoCheese')
     this.putoCheese.on('pointerdown', function() {
+      click.play()
       this.scene.stop()
       this.scene.resume('levelOne')
     } , this);

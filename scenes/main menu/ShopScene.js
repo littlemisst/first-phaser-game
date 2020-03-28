@@ -20,6 +20,7 @@ class ShopScene extends Phaser.Scene {
       if (coins > bibingkaPrice) {
         coins -= bibingkaPrice
         this.coinsText.setText(coins)
+        cash.play()
         recipes.push("bibingka")
       } else {
         this.bibingka.setTint(0xFF7F50);
@@ -31,6 +32,7 @@ class ShopScene extends Phaser.Scene {
       if (coins > haloHaloPrice) {
         coins -= haloHaloPrice
         this.coinsText.setText(coins)
+        cash.play()
         recipes.push("halo2x")
       } else {
         this.haloHalo.setTint(0xFF7F50);
@@ -42,12 +44,12 @@ class ShopScene extends Phaser.Scene {
       if (coins > putoCheesePrice) {
         coins -= putoCheesePrice
         this.coinsText.setText(coins)
+        cash.play()
         recipes.push("putoCheese")
       } else {
         this.putoCheese.setTint(0xFF7F50);
       }
     })
-    this.putoCheese.on('pointerup', () => this.putoCheese.clearTint())
 
     this.add.image(this.game.renderer.width / 2 + 120, this.game.renderer.height / 2 + 65, "bibingkaPrice").setDepth(1).setScale(0.3);
     this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2 + 65, "haloHaloPrice").setDepth(1).setScale(0.3);
@@ -64,6 +66,8 @@ class ShopScene extends Phaser.Scene {
       .setInteractive();
     this.coins = this.add.image(100, this.game.renderer.height - 30, "coins").setScale(0.8).setDepth(1)
     this.coinsText = this.add.text(170, this.game.renderer.height - 45, coins, { font: "25px Arial"})
-    this.back.on("pointerdown", () => this.scene.switch("mainMenu"), this);
+    this.back.on("pointerdown", function() {
+      click.play()
+      this.scene.switch("mainMenu")}, this);
   }
 }

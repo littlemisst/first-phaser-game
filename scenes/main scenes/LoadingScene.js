@@ -18,7 +18,7 @@ food, order
 let foodMenu, villagers, demands, foodOrders, complaints, timerEvent, enemyPointsGained
 
 //global
-let recipes = []
+let recipes = [], click, cash
 
 class LoadingScene extends Phaser.Scene {
   constructor() {
@@ -158,6 +158,8 @@ class LoadingScene extends Phaser.Scene {
     this.load.image('keyReceived', "assets/keyReceivedBanner.png" )
     this.load.image('continue', "assets/tapToContinue.png" )
     this.load.image('levelThreeTutorial', "assets/levelThreeTutorial.png" )
+    this.load.image('certificate', "assets/certificate.png" )
+    this.load.image('congrats', "assets/congratsBanner.png" )
 
     //gameOver
     this.load.image("gameOver", "assets/gameOver.png")
@@ -244,12 +246,18 @@ class LoadingScene extends Phaser.Scene {
     this.load.audio('eatSound', ['assets/eat.mp3']) 
     this.load.audio('gameOverSound', ['assets/gameOverSound.mp3']) 
     this.load.audio('nextLevelSound', ['assets/nextLevelSound.mp3']) 
-    this.load.audio('keyReceivedSound', ['assets/key.mp3']) 
+    this.load.audio('keyReceivedSound', ['assets/key.mp3'])
+    this.load.audio('lastRoundSound', ['assets/lastRoundSound.mp3']) 
+    this.load.audio('click', ['assets/click.mp3'])
+    this.load.audio('cash', ['assets/cash.mp3']) 
   }
 
   create() {
     globalThis.music = this.sound.add('music', { loop: true})
     // globalThis.music.play()
+
+    click = this.sound.add('click', {loop: false})
+    cash = this.sound.add('cash', { loop: false})
     this.add.image(400, 300, "logo");
   
 
@@ -368,7 +376,7 @@ class LoadingScene extends Phaser.Scene {
         start: 0,
         end: 3,
       }),
-      frameRate: 0.5,
+      frameRate: 1,
       repeat: 0
     });
 

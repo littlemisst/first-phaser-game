@@ -8,6 +8,7 @@ class LevelTwoSuccess extends Phaser.Scene {
     this.achievement = new Recipe(this, this.haloHalo)
     recipes.push('halo2x')
     this.haloHalo.on('pointerdown', function() {
+      click.play()
       this.scene.stop()
       this.scene.resume('levelTwo')
     } , this);

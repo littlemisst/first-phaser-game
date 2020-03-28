@@ -6,7 +6,7 @@ class LevelThree extends Phaser.Scene {
   create() {
     currentLevel = 'levelThree'
     menuList = ["tubigMenu", "potatoKwekKwekMenu", "kamoteLumpiaMenu", "sagotGulamanMenu", "putoCheeseMenu", "halo2xMenu"];
-    score = 0
+    score = 290
     enemyScore = 0
     point = 5
     ordersCount = Math.round(goal/point) + 1
@@ -130,11 +130,11 @@ class LevelThree extends Phaser.Scene {
           this.rightVillagersEvent.remove()
           this.leftVillagersEvent.remove()
           this.enemyProgress.remove()
-          this.scene.launch('levelTwoSuccess')
+          this.scene.launch('levelThreeSuccess')
           this.time.addEvent({
             delay: 100,
             callback: function() {
-              this.scene.switch('mainGameLevels')
+              this.scene.switch('mainMenu')
             },
             callbackScope: this,
             loop: false

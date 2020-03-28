@@ -19,15 +19,22 @@ class MainMenu extends Phaser.Scene {
 
   playButtonHere() {
     this.playButton = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height /2, 'play').setDepth(1).setInteractive()
-    this.playButton.on('pointerdown', () => this.scene.switch('mainGameLevels'), this);
+    this.playButton.on('pointerdown', function() {
+      click.play()
+      this.scene.switch('mainGameLevels')}, this);
   }
   shopButtonHere() {
     this.shopButton = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height /2 + 100, 'shop').setDepth(1).setInteractive()
-    this.shopButton.on('pointerdown', () => this.scene.switch('shop'), this);
+    this.shopButton.on('pointerdown', function() {
+      click.play()
+      this.scene.switch('shop')}, this);
   }
   cookBookButtonHere() {
     this.cookBookButton = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height /2 + 200, 'cookBook').setDepth(1).setInteractive()
-    this.cookBookButton.on('pointerdown', () => this.scene.switch('cookBook'), this);
+    this.cookBookButton.on('pointerdown', function() {
+      click.play()
+      this.scene.switch('cookBook')
+    } , this);
   }
 
   soundButtonHere() {

@@ -14,12 +14,14 @@ class LevelOneDialogue extends Phaser.Scene {
     new SlideTransition(this, this.dialogue, 500)
   
     this.time.delayedCall(500, function(){
+      this.dialogue.play('firstDialogue')
+      
       this.skip = this.add.image(this.game.renderer.width / 2 - 200, this.game.renderer.height / 2 + 100, 'skip').setInteractive()
       this.skip.on('pointerdown', ()=> this.scene.switch('levelOneTutorial'))
-      this.dialogue.play('firstDialogue')
+
       this.time.delayedCall(2500, function() {
         this.next = this.add.image(this.game.renderer.width / 2 + 200, this.game.renderer.height / 2 + 100, 'next').setInteractive()
-        this.next.on('pointerdown', ()=> this.scene.switch('levelOneTutorial'))
+        this.next.on('pointerdown', () => this.scene.switch('levelOneTutorial'))
       }, [], this)
     }, [], this)
     

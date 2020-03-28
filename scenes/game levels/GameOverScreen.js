@@ -21,6 +21,7 @@ class GameOver extends Phaser.Scene {
       let tryAgain = this.add.image(this.game.renderer.width/2, this.gameOver.y + 100, 'tryAgain').setScale(0.5)
       tryAgain.setInteractive()
       tryAgain.on('pointerdown', function() {
+        click.play()
         this.scene.stop()
         this.scene.start(currentLevel)
       } , this);

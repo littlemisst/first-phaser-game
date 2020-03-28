@@ -27,6 +27,7 @@ class KeyReceived extends Phaser.Scene {
     this.key.on(
       "pointerdown",
       function() {
+        click.play()
         this.scene.stop();
         this.scene.resume("levelThree");
       },
