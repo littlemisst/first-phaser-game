@@ -113,18 +113,19 @@ class Recipe extends EntityScene {
     scene.tweens.add({
       targets: target,
       x: scene.game.renderer.width/2,
-      duration: 3000,
+      duration: 2000,
       ease: 'Elastic',
       easeParams: [ 1.5, 0.5 ],
       delay: 0
     });
 
     scene.time.addEvent({
-      delay: 2000,
+      delay: 1000,
       callback: function() {
         scene.sparkle = scene.add.sprite(scene.game.renderer.width/2, scene.game.renderer.height/2, 'sparkles')
         scene.sparkle.play('sparkle')
 
+        scene.add.image(scene.game.renderer.width/2, scene.game.renderer.height/2-120, 'recipeUnlocked')
         let congrats =  scene.sound.add('nextLevelSound', { loop: false})
         congrats.play()
       },
@@ -190,9 +191,8 @@ class SlideTransition extends EntityScene {
       targets: target,
       x: scene.game.renderer.width/2,
       duration: duration,
-      ease: 'Elastic',
-      easeParams: [ 1.5, 0.5 ],
-      delay: 0
+      ease: 'Power2',
+      loop: 0
     });
   }
 }

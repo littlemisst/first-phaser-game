@@ -155,6 +155,9 @@ class LoadingScene extends Phaser.Scene {
     this.load.image('tutorial2', "assets/tutorialFrame2.png" )
     this.load.image('pangtabon', "assets/pangtabon.png" )
     this.load.image('start', "assets/start.png" )
+    this.load.image('recipeUnlocked', "assets/recipeUnlockedBanner.png" )
+    this.load.image('keyReceived', "assets/keyReceivedBanner.png" )
+    this.load.image('continue', "assets/tapToContinue.png" )
 
     //gameOver
     this.load.image("gameOver", "assets/gameOver.png")
@@ -203,8 +206,12 @@ class LoadingScene extends Phaser.Scene {
       frameHeight: 200
     });
     this.load.spritesheet("dialogue1", "assets/dialogueLevel1.png", {
-      frameWidth: 300,
-      frameHeight: 90
+      frameWidth: 405,
+      frameHeight: 118
+    });
+    this.load.spritesheet("dialogue2", "assets/dialogueLevel3.png", {
+      frameWidth: 399,
+      frameHeight: 118
     });
     
     //food menu
@@ -236,6 +243,7 @@ class LoadingScene extends Phaser.Scene {
     this.load.audio('eatSound', ['assets/eat.mp3']) 
     this.load.audio('gameOverSound', ['assets/gameOverSound.mp3']) 
     this.load.audio('nextLevelSound', ['assets/nextLevelSound.mp3']) 
+    this.load.audio('keyReceivedSound', ['assets/key.mp3']) 
   }
 
   create() {
@@ -347,9 +355,9 @@ class LoadingScene extends Phaser.Scene {
       key: "firstDialogue",
       frames: this.anims.generateFrameNumbers("dialogue1", {
         start: 0,
-        end: 4,
+        end: 3,
       }),
-      frameRate: 0.5,
+      frameRate: 1,
       repeat: 0
     });
 
