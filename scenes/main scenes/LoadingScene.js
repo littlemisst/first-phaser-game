@@ -155,12 +155,13 @@ class LoadingScene extends Phaser.Scene {
     this.load.image('tutorial2', "assets/tutorialFrame2.png" )
     this.load.image('pangtabon', "assets/pangtabon.png" )
     this.load.image('start', "assets/start.png" )
-    this.load.image('recipeUnlocked', "assets/recipeUnlockedBanner.png" )
     this.load.image('keyReceived', "assets/keyReceivedBanner.png" )
     this.load.image('continue', "assets/tapToContinue.png" )
+    this.load.image('levelThreeTutorial', "assets/levelThreeTutorial.png" )
 
     //gameOver
     this.load.image("gameOver", "assets/gameOver.png")
+    this.load.image('recipeUnlocked', "assets/recipeUnlockedBanner.png" )
     this.load.image("tryAgain", "assets/tryAgain.png")
 
     //recipe received
@@ -358,6 +359,16 @@ class LoadingScene extends Phaser.Scene {
         end: 3,
       }),
       frameRate: 1,
+      repeat: 0
+    });
+
+    this.anims.create({
+      key: "secondDialogue",
+      frames: this.anims.generateFrameNumbers("dialogue2", {
+        start: 0,
+        end: 3,
+      }),
+      frameRate: 0.5,
       repeat: 0
     });
 

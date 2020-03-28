@@ -8,9 +8,26 @@ const config = {
     disableWebAudio: true
   },
   physics: {
-    default: 'arcade'
+    default: "arcade"
   },
-  scene: [LoadingScene, MainMenu, MainGameLevels, ShopScene, CookBookScene, LevelOneDialogue, LevelOneTutorial, LevelOne, LevelOneSuccess, GameOver, LevelTwo,  LevelTwoSuccess, LevelThree, KeyReceived]
+  scene: [
+    LoadingScene,
+    MainMenu,
+    MainGameLevels,
+    ShopScene,
+    CookBookScene,
+    LevelOneDialogue,
+    LevelOneTutorial,
+    LevelOne,
+    LevelOneSuccess,
+    GameOver,
+    LevelTwo,
+    LevelTwoSuccess,
+    LevelThreeDialogue,
+    LevelThreeTutorial,
+    LevelThree,
+    KeyReceived
+  ]
 };
 
 const game = new Phaser.Game(config);
