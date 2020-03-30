@@ -18,7 +18,7 @@ food, order
 let foodMenu, villagers, demands, foodOrders, complaints, timerEvent, enemyPointsGained
 
 //global
-let recipes = [], click, cash, gameOver, no, soundFx, eat
+let recipes = [], click, cash, gameOver, no, soundFx, eat, music, lvl1, lvl2, lvl3
 
 class LoadingScene extends Phaser.Scene {
   constructor() {
@@ -277,18 +277,24 @@ class LoadingScene extends Phaser.Scene {
     this.load.audio('lastRoundSound', ['assets/lastRoundSound.mp3']) 
     this.load.audio('click', ['assets/click.mp3'])
     this.load.audio('cash', ['assets/cash.mp3']) 
-    this.load.audio('no', ['assets/no.mp3']) 
+    this.load.audio('no', ['assets/no.mp3'])
+    this.load.audio('lvl1', ['assets/lvl1.mp3'])
+    this.load.audio('lvl2', ['assets/lvl2.mp3'])
+    this.load.audio('lvl3', ['assets/lvl3.mp3'])
   }
 
   create() {
-    globalThis.music = this.sound.add('music', { loop: true})
-    // globalThis.music.play()
+    music = this.sound.add('music', { loop: true})
+    music.play()
     gameOver =  this.sound.add('gameOverSound', { loop: false})
     click = this.sound.add('click', {loop: false})
     cash = this.sound.add('cash', { loop: false})
     no = this.sound.add('no', { loop: false})
     soundFx =  this.sound.add('enemyScore', { loop: false})
     eat =  this.sound.add('eatSound', { loop: false})
+    lvl1 =  this.sound.add('lvl1', { loop: true})
+    lvl2 =  this.sound.add('lvl2', { loop: true})
+    lvl3 =  this.sound.add('lvl3', { loop: true})
 
 
     villagers = this.add.group()
@@ -298,7 +304,7 @@ class LoadingScene extends Phaser.Scene {
     complaints = this.add.group()
     enemyPointsGained = this.add.group()
 
-    
+
     this.add.image(400, 300, "logo");
   
 

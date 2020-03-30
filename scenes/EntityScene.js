@@ -8,7 +8,7 @@ class EntityScene extends Phaser.GameObjects.Sprite {
 }
 
 class MainGameScene extends EntityScene {
-  constructor(scene){
+  constructor(scene, lvlMusic){
     super(scene)
     scene.order = scene.add.image(scene.game.renderer.width - 50, 70, "ordersCountBg").setScale(0.7).setDepth(4)
     ordersCountText = scene.add.text(scene.game.renderer.width - 70, 70, ordersCount, { font: "40px Arial", fill: "#964B00", align: "center"}).setDepth(5)    
@@ -24,7 +24,11 @@ class MainGameScene extends EntityScene {
     new ProgressBar(scene, scene.game.renderer.width - 20, 'enemy', 'competitorProgressBar' )
 
     home = scene.add.image(scene.game.renderer.width - 40, scene.game.renderer.height - 50, "home").setScale(0.2).setDepth(3).setInteractive()
-    home.on('pointerdown', () => scene.scene.start('mainMenu'), this)
+    home.on('pointerdown', function() {
+      scene.scene.start('mainMenu')
+      music.play()
+      lvlMusic.stop()
+    }, this)
     
 
     character = scene.add

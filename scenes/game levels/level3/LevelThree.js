@@ -4,6 +4,8 @@ class LevelThree extends Phaser.Scene {
   }
 
   create() {
+    lvl3.play()
+    music.pause()
     currentLevel = 'levelThree'
     menuList = ["tubigMenu", "potatoKwekKwekMenu", "kamoteLumpiaMenu", "sagotGulamanMenu", "putoCheeseMenu", "halo2xMenu"];
     score = 250
@@ -20,7 +22,8 @@ class LevelThree extends Phaser.Scene {
     enemyPointsGained = this.add.group()
 
     this.scene.launch('levelThreeTutorial')
-    this.baseScene = new MainGameScene(this)
+    
+    this.baseScene = new MainGameScene(this, lvl3)
   
     //progress bar for main character
     emptyProgressBar = this.add

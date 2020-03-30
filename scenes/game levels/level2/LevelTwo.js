@@ -4,9 +4,12 @@ class LevelTwo extends Phaser.Scene {
   }
 
   create() {
+    music.pause()
+    lvl2.play()
+
     currentLevel = 'levelTwo'
     menuList = ["tubigMenu", "potatoKwekKwekMenu", "kamoteLumpiaMenu", "sagotGulamanMenu", "putoCheeseMenu"];
-    score = 0
+    score = 280
     enemyScore = 0
     point = 8
     ordersCount = Math.round(goal/point)
@@ -21,7 +24,7 @@ class LevelTwo extends Phaser.Scene {
 
     this.scene.launch('levelTwoTutorial')
 
-    this.baseScene = new MainGameScene(this)
+    this.baseScene = new MainGameScene(this, lvl2)
 
     //progress bar for main character
     emptyProgressBar = this.add

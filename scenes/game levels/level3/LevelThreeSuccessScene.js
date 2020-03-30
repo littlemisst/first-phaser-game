@@ -4,6 +4,7 @@ class LevelThreeSuccess extends Phaser.Scene {
   }
 
   create(){
+    lvl3.stop()
     let certificateSound =  this.sound.add('lastRoundSound', { loop: false})
     certificateSound.play()
 
