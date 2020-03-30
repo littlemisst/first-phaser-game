@@ -15,18 +15,19 @@ const config = {
     MainMenu,
     MainGameLevels,
     ShopScene,
-    CookBookScene,
     LevelOneDialogue,
-    LevelOneTutorial,
     LevelOne,
+    LevelOneTutorial,
     LevelOneSuccess,
-    GameOver,
     LevelTwo,
+    LevelTwoTutorial,
     LevelTwoSuccess,
     LevelThreeDialogue,
-    LevelThreeTutorial,
     LevelThree,
+    LevelThreeTutorial,
     LevelThreeSuccess,
+    MissionFailedScene,
+    GameOver,
     KeyReceived
   ]
 };

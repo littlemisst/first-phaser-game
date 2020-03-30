@@ -4,23 +4,18 @@ class GameOver extends Phaser.Scene {
   }
 
   create(){
-    this.gameOver = this.add.image(0, this.game.renderer.height/2, 'gameOver').setDepth(5)
-    this.tweens.add({
-      targets: this.gameOver,
-      x: this.game.renderer.width/2,
-      duration: 3000,
-      ease: 'Elastic',
-      easeParams: [ 1.5, 0.5 ],
-      delay: 0
-    });
+    this.gameOver = this.add.image(0, this.game.renderer.height/2, 'gameOver')
+    new BoinkyTransition(this, this.gameOver, this.game.renderer.width/2, 3000, [1.5, 0.5])
 
-    let gameOver =  this.sound.add('gameOverSound', { loop: false})
     gameOver.play()
 
     this.time.delayedCall(3300, function() {
       let tryAgain = this.add.image(this.game.renderer.width/2, this.gameOver.y + 100, 'tryAgain').setScale(0.5)
       tryAgain.setInteractive()
       tryAgain.on('pointerdown', function() {
+        if (recipes.includes('key')) {
+          recipes.pop()
+        }
         click.play()
         this.scene.stop()
         this.scene.start(currentLevel)

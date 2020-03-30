@@ -6,11 +6,11 @@ class LevelThree extends Phaser.Scene {
   create() {
     currentLevel = 'levelThree'
     menuList = ["tubigMenu", "potatoKwekKwekMenu", "kamoteLumpiaMenu", "sagotGulamanMenu", "putoCheeseMenu", "halo2xMenu"];
-    score = 290
+    score = 0
     enemyScore = 0
     point = 5
-    ordersCount = Math.round(goal/point) + 1
-    let randomProgress = Phaser.Math.Between(4, 7);
+    ordersCount = Math.round(goal/point) 
+    let randomProgress = Phaser.Math.Between(5, 7);
 
     villagers = this.add.group()
     foodMenu = this.add.group()
@@ -19,8 +19,9 @@ class LevelThree extends Phaser.Scene {
     complaints = this.add.group()
     enemyPointsGained = this.add.group()
 
+    this.scene.launch('levelThreeTutorial')
     this.baseScene = new MainGameScene(this)
-
+  
     //progress bar for main character
     emptyProgressBar = this.add
     .image(
@@ -130,7 +131,12 @@ class LevelThree extends Phaser.Scene {
           this.rightVillagersEvent.remove()
           this.leftVillagersEvent.remove()
           this.enemyProgress.remove()
-          this.scene.launch('levelThreeSuccess')
+          if (recipes.includes('key')) {
+            this.scene.launch('levelThreeSuccess')
+          } else {
+            this.scene.launch('missionFailed')
+          }
+          
           this.time.addEvent({
             delay: 100,
             callback: function() {
@@ -144,12 +150,11 @@ class LevelThree extends Phaser.Scene {
       } else if (obj.name != dropZone.name) {
         obj.destroy();
         dropZone.destroy();
-        score -= 5;
       }
     }, this);
 
     this.rightVillagersEvent = this.time.addEvent({
-      delay: Phaser.Math.Between(8000, 9000),
+      delay: Phaser.Math.Between(5000, 7000),
       callback: function() {
         let villager = new VillagerFromRight(
           this,
@@ -165,7 +170,7 @@ class LevelThree extends Phaser.Scene {
     });
 
     this.leftVillagersEvent = this.time.addEvent({
-      delay: Phaser.Math.Between(8000, 9000),
+      delay: Phaser.Math.Between(5000, 7000),
       callback: function() {
         let villager = new VillagerFromLeft(
           this,

@@ -10,7 +10,7 @@ class EntityScene extends Phaser.GameObjects.Sprite {
 class MainGameScene extends EntityScene {
   constructor(scene){
     super(scene)
-    scene.order = scene.add.image(scene.game.renderer.width - 50, 70, "ordersCountBg").setScale(0.7).setDepth(3)
+    scene.order = scene.add.image(scene.game.renderer.width - 50, 70, "ordersCountBg").setScale(0.7).setDepth(4)
     ordersCountText = scene.add.text(scene.game.renderer.width - 70, 70, ordersCount, { font: "40px Arial", fill: "#964B00", align: "center"}).setDepth(5)    
     
     
@@ -140,7 +140,7 @@ class GenerateSpecialVillager extends EntityScene {
     super(scene)
     let randomSide = Phaser.Math.Between(0, 1)
     this.specialVillagerEvent = scene.time.addEvent({
-      delay: Phaser.Math.Between(15000, 25000),
+      delay: Phaser.Math.Between(25000, 60000),
       callback: function() {
         if (randomSide == 0) {
           let specialVillager = new SpecialVillager(scene, 0, scene.game.renderer.height / 2 + 180, Phaser.Math.Between(10, 50))
@@ -193,6 +193,21 @@ class SlideTransition extends EntityScene {
       duration: duration,
       ease: 'Power2',
       loop: 0
+    });
+  }
+}
+
+class BoinkyTransition extends EntityScene {
+  constructor(scene, target, x, duration, easeParams) {
+    super(scene)
+    
+    scene.tweens.add({
+      targets: target,
+      x: x,
+      duration: duration,
+      ease: 'Elastic',
+      easeParams: easeParams,
+      delay: 0
     });
   }
 }

@@ -8,8 +8,8 @@ class LevelTwo extends Phaser.Scene {
     menuList = ["tubigMenu", "potatoKwekKwekMenu", "kamoteLumpiaMenu", "sagotGulamanMenu", "putoCheeseMenu"];
     score = 0
     enemyScore = 0
-    point = 290
-    ordersCount = Math.round(goal/point) + 1
+    point = 10
+    ordersCount = Math.round(goal/point)
     let randomProgress = Phaser.Math.Between(8, 10);
 
     villagers = this.add.group()
@@ -18,6 +18,8 @@ class LevelTwo extends Phaser.Scene {
     foodOrders = this.add.group()
     complaints = this.add.group()
     enemyPointsGained = this.add.group()
+
+    this.scene.launch('levelTwoTutorial')
 
     this.baseScene = new MainGameScene(this)
 
@@ -125,6 +127,7 @@ class LevelTwo extends Phaser.Scene {
           fullProgressBarMask.y -= point
         }
         if (score > goal) {
+          fullProgressBarMask.y -= point
           this.scene.pause();
           new RemoveEntities(this)
           this.rightVillagersEvent.remove()
@@ -144,7 +147,6 @@ class LevelTwo extends Phaser.Scene {
       } else if (obj.name != dropZone.name) {
         obj.destroy();
         dropZone.destroy();
-        score -= 5;
       }
     }, this);
 

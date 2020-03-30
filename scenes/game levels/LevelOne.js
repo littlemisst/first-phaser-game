@@ -8,7 +8,7 @@ class LevelOne extends Phaser.Scene {
     menuList = ["tubigMenu", "potatoKwekKwekMenu", "kamoteLumpiaMenu"];
     score = 0
     enemyScore = 0
-    point = 290
+    point = 8
     ordersCount = Math.round(goal/point)
     let randomProgress = Phaser.Math.Between(8, 10);
 
@@ -18,6 +18,9 @@ class LevelOne extends Phaser.Scene {
     foodOrders = this.add.group()
     complaints = this.add.group()
     enemyPointsGained = this.add.group()
+
+    this.scene.launch('levelOneTutorial')
+  
 
     this.baseScene = new MainGameScene(this)
 
@@ -125,6 +128,7 @@ class LevelOne extends Phaser.Scene {
           fullProgressBarMask.y -= point
         }
         if (score > goal) {
+          fullProgressBarMask.y -= point
           this.scene.pause();
           new RemoveEntities(this)
           this.rightVillagersEvent.remove()
@@ -144,7 +148,6 @@ class LevelOne extends Phaser.Scene {
       } else if (obj.name != dropZone.name) {
         obj.destroy();
         dropZone.destroy();
-        score -= 5;
       }
     }, this);
 
@@ -180,7 +183,7 @@ class LevelOne extends Phaser.Scene {
       callbackScope: this,
       loop: true
     });
-
   }
+
 }
 

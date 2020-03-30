@@ -11,10 +11,8 @@ class MainMenu extends Phaser.Scene {
    
     this.playButtonHere()
     this.shopButtonHere()
-    this.cookBookButtonHere()
     this.soundButtonHere()
     this.updateAudio()
-    // this.creditsButton = this.add.image(this.game.renderer.width / 2, this.game.renderer.height /2 + 180, 'credits').setDepth(1)
   }
 
   playButtonHere() {
@@ -28,13 +26,6 @@ class MainMenu extends Phaser.Scene {
     this.shopButton.on('pointerdown', function() {
       click.play()
       this.scene.switch('shop')}, this);
-  }
-  cookBookButtonHere() {
-    this.cookBookButton = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height /2 + 200, 'cookBook').setDepth(1).setInteractive()
-    this.cookBookButton.on('pointerdown', function() {
-      click.play()
-      this.scene.switch('cookBook')
-    } , this);
   }
 
   soundButtonHere() {

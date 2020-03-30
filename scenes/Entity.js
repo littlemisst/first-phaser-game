@@ -50,8 +50,15 @@ class VillagerFromRight extends Entity {
 
 class FoodOrder extends Entity {
   constructor(scene, x, y, velocity, level) {
-    const order = orders[Phaser.Math.Between(0, level+2)];
+    let order;
+    if (level == 1) {
+      order = orders[Phaser.Math.Between(0, level+1)];
+    } else {
+      order = orders[Phaser.Math.Between(0, level+2)];
+    }
+
     super(scene, x, y, order);
+    
     this.body.setVelocityX(velocity);
     this.setInteractive({dropZone: true}).setName(order+'Menu')
 
