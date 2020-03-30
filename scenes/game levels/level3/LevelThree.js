@@ -6,10 +6,10 @@ class LevelThree extends Phaser.Scene {
   create() {
     currentLevel = 'levelThree'
     menuList = ["tubigMenu", "potatoKwekKwekMenu", "kamoteLumpiaMenu", "sagotGulamanMenu", "putoCheeseMenu", "halo2xMenu"];
-    score = 280
+    score = 250
     enemyScore = 0
     point = 5
-    ordersCount = 2
+    ordersCount = Math.round(goal/point)
     let randomProgress = Phaser.Math.Between(5, 7);
 
     villagers = this.add.group()
@@ -186,11 +186,15 @@ class LevelThree extends Phaser.Scene {
     this.rightVillagersEvent.remove()
     this.leftVillagersEvent.remove()
     this.enemyProgress.remove()
-    this.scene.launch('levelThreeSuccess')
+    if (recipes.includes('key')) {
+      this.scene.launch('levelThreeSuccess')
+    } else {
+      this.scene.launch('missionFailed')
+    }
     this.time.addEvent({
       delay: 100,
       callback: function() {
-        this.scene.start('mainGameLevels')
+        this.scene.start('mainMenu')
       },
       callbackScope: this,
       loop: false
