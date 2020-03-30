@@ -1,16 +1,16 @@
-class LevelThree extends Phaser.Scene {
+class LevelOne extends Phaser.Scene {
   constructor() {
-    super('levelThree');
+    super('levelOne');
   }
 
   create() {
-    currentLevel = 'levelThree'
-    menuList = ["tubigMenu", "potatoKwekKwekMenu", "kamoteLumpiaMenu", "sagotGulamanMenu", "putoCheeseMenu", "halo2xMenu"];
+    currentLevel = 'levelOne'
+    menuList = ["tubigMenu", "potatoKwekKwekMenu", "kamoteLumpiaMenu"];
     score = 0
     enemyScore = 0
-    point = 5
-    ordersCount = Math.round(goal/point) 
-    let randomProgress = Phaser.Math.Between(5, 7);
+    point = 10
+    ordersCount = Math.round(goal/point)
+    let randomProgress = Phaser.Math.Between(9, 11);
 
     villagers = this.add.group()
     foodMenu = this.add.group()
@@ -19,9 +19,10 @@ class LevelThree extends Phaser.Scene {
     complaints = this.add.group()
     enemyPointsGained = this.add.group()
 
-    this.scene.launch('levelThreeTutorial')
-    this.baseScene = new MainGameScene(this)
+    this.scene.launch('levelOneTutorial')
   
+    this.baseScene = new MainGameScene(this)
+
     //progress bar for main character
     emptyProgressBar = this.add
     .image(
@@ -67,9 +68,8 @@ class LevelThree extends Phaser.Scene {
       this.enemyProgressBarMask
     );
 
-    
     this.enemyProgress = this.time.addEvent({
-      delay: Phaser.Math.Between(3000, 4000),
+      delay: Phaser.Math.Between(5000, 6000),
       callback: function() {
         this.enemyProgressBarMask.y -= randomProgress;
 
@@ -78,19 +78,12 @@ class LevelThree extends Phaser.Scene {
         enemyPoints.play('enemyScores')
         enemyPointsGained.add(enemyPoints)
 
-        let soundFx =  this.sound.add('enemyScore', { loop: false})
         soundFx.play()
 
         enemyScore += randomProgress
 
         if (enemyScore >= goal) {
-          this.scene.pause();
-          new RemoveEntities(this)
-          this.rightVillagersEvent.remove()
-          this.leftVillagersEvent.remove()
-          this.enemyProgress.remove()
-          home.destroy()
-          this.scene.launch('gameOver')
+          this.showGameOver()
         }
         this.time.delayedCall(800,()=>enemyPoints.destroy(), [], this)
       },
@@ -115,10 +108,10 @@ class LevelThree extends Phaser.Scene {
         dropZone.destroy();
         timerEvent.remove()
 
-        let eat =  this.sound.add('eatSound', { loop: false})
         eat.play()
 
         score += point;
+
         ordersCount -= 1
         ordersCountText.setText(ordersCount)
         
@@ -126,41 +119,29 @@ class LevelThree extends Phaser.Scene {
           fullProgressBarMask.y -= point
         }
         if (score > goal) {
-          this.scene.pause();
-          new RemoveEntities(this)
-          this.rightVillagersEvent.remove()
-          this.leftVillagersEvent.remove()
-          this.enemyProgress.remove()
-          if (recipes.includes('key')) {
-            this.scene.launch('levelThreeSuccess')
-          } else {
-            this.scene.launch('missionFailed')
-          }
-          
-          this.time.addEvent({
-            delay: 100,
-            callback: function() {
-              this.scene.switch('mainMenu')
-            },
-            callbackScope: this,
-            loop: false
-          });
-          
+          fullProgressBarMask.y -= point
+          this.showSuccess()
         }
       } else if (obj.name != dropZone.name) {
         obj.destroy();
         dropZone.destroy();
+        score -= point
+        if (score > 0)  {
+          fullProgressBarMask.y += point
+        }
+        no.play()
       }
+    
     }, this);
 
     this.rightVillagersEvent = this.time.addEvent({
-      delay: Phaser.Math.Between(5000, 7000),
+      delay: Phaser.Math.Between(5000, 10000),
       callback: function() {
         let villager = new VillagerFromRight(
           this,
           this.game.renderer.width,
           this.game.renderer.height / 2 + 180,
-          3
+          1
         );
         villagers.add(villager)
         villager.setDepth(1)
@@ -170,13 +151,13 @@ class LevelThree extends Phaser.Scene {
     });
 
     this.leftVillagersEvent = this.time.addEvent({
-      delay: Phaser.Math.Between(5000, 7000),
+      delay: Phaser.Math.Between(5000, 10000),
       callback: function() {
         let villager = new VillagerFromLeft(
           this,
           0,
           this.game.renderer.height / 2 + 180,
-          3
+          1
         );
         villagers.add(villager)
         villager.flipX = true;
@@ -185,8 +166,34 @@ class LevelThree extends Phaser.Scene {
       callbackScope: this,
       loop: true
     });
-
-    this.specialVillagerEvent = new GenerateSpecialVillager(this)
   }
+
+  showGameOver() {
+    this.scene.pause();
+    new RemoveEntities(this)
+    this.rightVillagersEvent.remove()
+    this.leftVillagersEvent.remove()
+    this.enemyProgress.remove()
+    home.destroy()
+    this.scene.launch('gameOver')
+  }
+
+  showSuccess() {
+    this.scene.pause();
+    new RemoveEntities(this)
+    this.rightVillagersEvent.remove()
+    this.leftVillagersEvent.remove()
+    this.enemyProgress.remove()
+    this.scene.launch('levelOneSuccess')
+    this.time.addEvent({
+      delay: 100,
+      callback: function() {
+        this.scene.start('mainGameLevels')
+      },
+      callbackScope: this,
+      loop: false
+    });
+  }
+
 }
 

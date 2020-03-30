@@ -8,9 +8,9 @@ class LevelTwo extends Phaser.Scene {
     menuList = ["tubigMenu", "potatoKwekKwekMenu", "kamoteLumpiaMenu", "sagotGulamanMenu", "putoCheeseMenu"];
     score = 0
     enemyScore = 0
-    point = 10
+    point = 8
     ordersCount = Math.round(goal/point)
-    let randomProgress = Phaser.Math.Between(8, 10);
+    let randomProgress = Phaser.Math.Between(7, 9);
 
     villagers = this.add.group()
     foodMenu = this.add.group()
@@ -70,7 +70,7 @@ class LevelTwo extends Phaser.Scene {
 
     
     this.enemyProgress = this.time.addEvent({
-      delay: Phaser.Math.Between(3000, 5000),
+      delay: Phaser.Math.Between(4000, 6000),
       callback: function() {
         this.enemyProgressBarMask.y -= randomProgress;
 
@@ -79,19 +79,12 @@ class LevelTwo extends Phaser.Scene {
         enemyPoints.play('enemyScores')
         enemyPointsGained.add(enemyPoints)
 
-        let soundFx =  this.sound.add('enemyScore', { loop: false})
         soundFx.play()
 
         enemyScore += randomProgress
 
         if (enemyScore >= goal) {
-          this.scene.pause();
-          new RemoveEntities(this)
-          this.rightVillagersEvent.remove()
-          this.leftVillagersEvent.remove()
-          this.enemyProgress.remove()
-          home.destroy()
-          this.scene.launch('gameOver')
+          this.showGameOver()
         }
         this.time.delayedCall(800,()=>enemyPoints.destroy(), [], this)
       },
@@ -116,10 +109,10 @@ class LevelTwo extends Phaser.Scene {
         dropZone.destroy();
         timerEvent.remove()
 
-        let eat =  this.sound.add('eatSound', { loop: false})
         eat.play()
 
         score += point;
+      
         ordersCount -= 1
         ordersCountText.setText(ordersCount)
         
@@ -128,26 +121,19 @@ class LevelTwo extends Phaser.Scene {
         }
         if (score > goal) {
           fullProgressBarMask.y -= point
-          this.scene.pause();
-          new RemoveEntities(this)
-          this.rightVillagersEvent.remove()
-          this.leftVillagersEvent.remove()
-          this.enemyProgress.remove()
-          this.scene.launch('levelTwoSuccess')
-          this.time.addEvent({
-            delay: 100,
-            callback: function() {
-              this.scene.switch('mainGameLevels')
-            },
-            callbackScope: this,
-            loop: false
-          });
-          
+          this.showSuccess()
         }
       } else if (obj.name != dropZone.name) {
         obj.destroy();
         dropZone.destroy();
+        score -= point
+        console.log(score)
+        if (score > 0)  {
+          fullProgressBarMask.y += point
+        }
+        no.play()
       }
+    
     }, this);
 
     this.rightVillagersEvent = this.time.addEvent({
@@ -182,7 +168,33 @@ class LevelTwo extends Phaser.Scene {
       callbackScope: this,
       loop: true
     });
+  }
 
+  showGameOver() {
+    this.scene.pause();
+    new RemoveEntities(this)
+    this.rightVillagersEvent.remove()
+    this.leftVillagersEvent.remove()
+    this.enemyProgress.remove()
+    home.destroy()
+    this.scene.launch('gameOver')
+  }
+
+  showSuccess() {
+    this.scene.pause();
+    new RemoveEntities(this)
+    this.rightVillagersEvent.remove()
+    this.leftVillagersEvent.remove()
+    this.enemyProgress.remove()
+    this.scene.launch('levelTwoSuccess')
+    this.time.addEvent({
+      delay: 100,
+      callback: function() {
+        this.scene.start('mainGameLevels')
+      },
+      callbackScope: this,
+      loop: false
+    });
   }
 }
 

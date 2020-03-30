@@ -18,7 +18,7 @@ food, order
 let foodMenu, villagers, demands, foodOrders, complaints, timerEvent, enemyPointsGained
 
 //global
-let recipes = [], click, cash, gameOver
+let recipes = [], click, cash, gameOver, no, soundFx, eat
 
 class LoadingScene extends Phaser.Scene {
   constructor() {
@@ -277,6 +277,7 @@ class LoadingScene extends Phaser.Scene {
     this.load.audio('lastRoundSound', ['assets/lastRoundSound.mp3']) 
     this.load.audio('click', ['assets/click.mp3'])
     this.load.audio('cash', ['assets/cash.mp3']) 
+    this.load.audio('no', ['assets/no.mp3']) 
   }
 
   create() {
@@ -285,6 +286,19 @@ class LoadingScene extends Phaser.Scene {
     gameOver =  this.sound.add('gameOverSound', { loop: false})
     click = this.sound.add('click', {loop: false})
     cash = this.sound.add('cash', { loop: false})
+    no = this.sound.add('no', { loop: false})
+    soundFx =  this.sound.add('enemyScore', { loop: false})
+    eat =  this.sound.add('eatSound', { loop: false})
+
+
+    villagers = this.add.group()
+    foodMenu = this.add.group()
+    demands = this.add.group()
+    foodOrders = this.add.group()
+    complaints = this.add.group()
+    enemyPointsGained = this.add.group()
+
+    
     this.add.image(400, 300, "logo");
   
 

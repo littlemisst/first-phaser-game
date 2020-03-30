@@ -17,10 +17,10 @@ class LevelOneTutorial extends Phaser.Scene {
   tutorialTwo() {
     tutorial1.destroy()
     tutorial2 =  this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2, 'tutorial2').setInteractive()
-    tutorial2.on('pointerdown', () => this.situation())
+    tutorial2.on('pointerdown', () => this.situationLevel1())
   }
 
-  situation() {
+  situationLevel1() {
     tutorial2.destroy()
     this.situation = this.add.image(this.game.renderer.width / 2, this.game.renderer.height/2, 'situation1').setInteractive()
   
