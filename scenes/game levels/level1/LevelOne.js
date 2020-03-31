@@ -8,7 +8,7 @@ class LevelOne extends Phaser.Scene {
     music.pause()
     currentLevel = 'levelOne'
     menuList = ["tubigMenu", "potatoKwekKwekMenu", "kamoteLumpiaMenu"];
-    score = 280
+    score = 0
     enemyScore = 0
     point = 10
     ordersCount = Math.round(goal/point)

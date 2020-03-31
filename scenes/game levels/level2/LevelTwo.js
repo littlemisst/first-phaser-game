@@ -9,7 +9,7 @@ class LevelTwo extends Phaser.Scene {
 
     currentLevel = 'levelTwo'
     menuList = ["tubigMenu", "potatoKwekKwekMenu", "kamoteLumpiaMenu", "sagotGulamanMenu", "putoCheeseMenu"];
-    score = 280
+    score = 0
     enemyScore = 0
     point = 8
     ordersCount = Math.round(goal/point)
