@@ -1,7 +1,6 @@
 const bibingkaPrice = 1500
 const putoCheesePrice = 1200
 const haloHaloPrice = 1000
-globalThis.coins = 10000
 
 class ShopScene extends Phaser.Scene {
   constructor() {
@@ -17,7 +16,7 @@ class ShopScene extends Phaser.Scene {
     this.putoCheese = this.add.image(this.game.renderer.width / 2 - 120, this.game.renderer.height / 2, "putoCheeseMenu").setDepth(1).setScale(0.5).setInteractive();
 
     this.bibingka.on('pointerdown', () => {
-      if (coins > bibingkaPrice) {
+      if (coins >= bibingkaPrice) {
         coins -= bibingkaPrice
         this.coinsText.setText(coins)
         cash.play()
@@ -29,7 +28,7 @@ class ShopScene extends Phaser.Scene {
     this.bibingka.on('pointerup', () => this.bibingka.clearTint())
 
     this.haloHalo.on('pointerdown', () => {
-      if (coins > haloHaloPrice) {
+      if (coins >= haloHaloPrice) {
         coins -= haloHaloPrice
         this.coinsText.setText(coins)
         cash.play()
@@ -41,7 +40,7 @@ class ShopScene extends Phaser.Scene {
     this.haloHalo.on('pointerup', () => this.haloHalo.clearTint())
 
     this.putoCheese.on('pointerdown', () => {
-      if (coins > putoCheesePrice) {
+      if (coins >= putoCheesePrice) {
         coins -= putoCheesePrice
         this.coinsText.setText(coins)
         cash.play()

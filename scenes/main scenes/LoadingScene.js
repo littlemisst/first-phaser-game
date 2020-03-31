@@ -18,7 +18,7 @@ food, order
 let foodMenu, villagers, demands, foodOrders, complaints, timerEvent, enemyPointsGained
 
 //global
-let recipes = [], click, cash, gameOver, no, soundFx, eat, music, lvl1, lvl2, lvl3
+let recipes = [], click, cash, gameOver, no, soundFx, eat, music, lvl1, lvl2, lvl3, coins = 1000
 
 class LoadingScene extends Phaser.Scene {
   constructor() {

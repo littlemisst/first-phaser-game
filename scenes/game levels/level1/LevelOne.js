@@ -117,20 +117,16 @@ class LevelOne extends Phaser.Scene {
         ordersCount -= 1
         ordersCountText.setText(ordersCount)
         
-        if (score <= goal) {
+        if (score < goal) {
           fullProgressBarMask.y -= point
         }
-        if (score > goal) {
+        if (score >= goal) {
           fullProgressBarMask.y -= point
           this.showSuccess()
         }
       } else if (obj.name != dropZone.name) {
         obj.destroy();
         dropZone.destroy();
-        score -= point
-        if (score > 0)  {
-          fullProgressBarMask.y += point
-        }
         no.play()
       }
     

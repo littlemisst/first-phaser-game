@@ -128,10 +128,6 @@ class LevelThree extends Phaser.Scene {
       } else if (obj.name != dropZone.name) {
         obj.destroy();
         dropZone.destroy();
-        score -= point
-        if (score > 0)  {
-          fullProgressBarMask.y += point
-        }
         no.play()
       }
       

@@ -4,6 +4,7 @@ class LevelTwoSuccess extends Phaser.Scene {
   }
 
   create(){
+    lvl2.stop()
     this.haloHalo = this.add.image(0, this.game.renderer.height/2, 'halo2xMenu').setInteractive()
     this.achievement = new Recipe(this, this.haloHalo)
     recipes.push('halo2x')
