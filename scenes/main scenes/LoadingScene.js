@@ -18,7 +18,7 @@ food, order
 let foodMenu, villagers, demands, foodOrders, complaints, timerEvent, enemyPointsGained
 
 //global
-let recipes = [], coins = 0, garbageBag, rightVillagersEvent, leftVillagersEvent, enemyProgress
+let recipes = [], garbageBag, rightVillagersEvent, leftVillagersEvent, enemyProgress, specialVillager
 // sounds
 let click, cash, gameOverSound, no, soundFx, eat, music, lvl1, lvl2, lvl3
 

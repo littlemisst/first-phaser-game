@@ -31,6 +31,7 @@ class KeyReceived extends Phaser.Scene {
         click.play()
         this.scene.stop();
         this.scene.resume("levelThree");
+        specialVillager.removeInteractive();
         lvl3.resume()
       },
       this

@@ -23,7 +23,7 @@ class MainGameScene extends EntityScene {
     new ProgressBar(scene, scene.game.renderer.width - 55, 'character', 'fullProgressBar')
     new ProgressBar(scene, scene.game.renderer.width - 20, 'enemy', 'competitorProgressBar' )
 
-    home = scene.add.image(scene.game.renderer.width - 40, scene.game.renderer.height - 50, "home").setScale(0.2).setDepth(3).setInteractive()
+    home = scene.add.image(scene.game.renderer.width - 40, scene.game.renderer.height - 50, "home").setScale(0.2).setDepth(2).setInteractive()
     home.on('pointerdown', function() {
       scene.scene.start('mainMenu')
       music.play()
@@ -155,7 +155,7 @@ class GenerateSpecialVillager extends EntityScene {
       delay: Phaser.Math.Between(25000, 60000),
       callback: function() {
         if (randomSide == 0) {
-          let specialVillager = new SpecialVillager(scene, 0, scene.game.renderer.height / 2 + 180, Phaser.Math.Between(10, 50))
+          specialVillager = new SpecialVillager(scene, 0, scene.game.renderer.height / 2 + 180, Phaser.Math.Between(10, 50))
           specialVillager.flipX = true
           specialVillager.setDepth(1).setInteractive()
           specialVillager.on('pointerdown', function() {
@@ -163,7 +163,7 @@ class GenerateSpecialVillager extends EntityScene {
             scene.scene.launch('keyReceived')
           })
         } else {
-          let specialVillager = new SpecialVillager(scene, scene.game.renderer.width, scene.game.renderer.height / 2 + 180, Phaser.Math.Between(-50, -10))
+          specialVillager = new SpecialVillager(scene, scene.game.renderer.width, scene.game.renderer.height / 2 + 180, Phaser.Math.Between(-50, -10))
           specialVillager.setDepth(1).setInteractive()
           specialVillager.on('pointerdown', function() {
             scene.scene.pause();

@@ -112,7 +112,7 @@ class LevelThree extends Phaser.Scene {
           coins += 1
           obj.destroy();
           dropZone.destroy();
-          timerEvent.remove()
+          timerEvent.remove(false)
   
           eat.play()
   

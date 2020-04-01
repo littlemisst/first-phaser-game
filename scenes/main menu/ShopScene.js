@@ -1,7 +1,7 @@
 const bibingkaPrice = 1500
 const putoCheesePrice = 1200
 const haloHaloPrice = 1000
-
+globalThis.coins = 0
 class ShopScene extends Phaser.Scene {
   constructor() {
     super("shop");

@@ -82,7 +82,7 @@ class FoodOrder extends Entity {
         let soundFx =  scene.sound.add('tagalSound', { loop: false})
         soundFx.play()
 
-        scene.time.delayedCall(800,()=>complain.destroy(), [], this)
+        scene.time.delayedCall(800,()=>complain.destroy(), [], scene)
       },
       callbackScope: this,
       loop: false
