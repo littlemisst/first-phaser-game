@@ -18,7 +18,9 @@ food, order
 let foodMenu, villagers, demands, foodOrders, complaints, timerEvent, enemyPointsGained
 
 //global
-let recipes = [], click, cash, gameOver, no, soundFx, eat, music, lvl1, lvl2, lvl3, coins = 1000
+let recipes = [], coins = 0, garbageBag, rightVillagersEvent, leftVillagersEvent, enemyProgress
+// sounds
+let click, cash, gameOverSound, no, soundFx, eat, music, lvl1, lvl2, lvl3
 
 class LoadingScene extends Phaser.Scene {
   constructor() {
@@ -147,23 +149,26 @@ class LoadingScene extends Phaser.Scene {
     this.load.image("enemy", "assets/enemy.png");
     this.load.image("angry", "assets/angry.png")
     this.load.image("home", "assets/home.png")
-    this.load.image('ordersCountBg', "assets/ordersCount.png" )
-    this.load.image('key', "assets/key.png" )
-    this.load.image('keyReceived', "assets/keyReceivedBanner.png" )
-    this.load.image('continue', "assets/tapToContinue.png" )
-    this.load.image('certificate', "assets/certificate.png" )
-    this.load.image('congrats', "assets/congratsBanner.png" )
-    this.load.image('pangtabon', "assets/pangtabon.png" )
+    this.load.image('ordersCountBg', "assets/ordersCount.png")
+    this.load.image('key', "assets/key.png")
+    this.load.image('keyReceived', "assets/keyReceivedBanner.png")
+    this.load.image('continue', "assets/tapToContinue.png")
+    this.load.image('certificate', "assets/certificate.png")
+    this.load.image('congrats', "assets/congratsBanner.png")
+    this.load.image('pangtabon', "assets/pangtabon.png")
+    this.load.image('garbage', "assets/garbage.png")
+
     //dialogues
     this.load.image('skip', "assets/skip.png" )
     this.load.image('go', "assets/go.png" )
     this.load.image('levelThreeTutorial', "assets/levelThreeTutorial.png" )
+
     //level 1
-    this.load.image('lvl1frame1', "assets/dialogueLevel1-frame1.png" )
-    this.load.image('lvl1frame2', "assets/dialogueLevel1-frame2.png" )
-    this.load.image('lvl1frame3', "assets/dialogueLevel1-frame3.png" )
-    this.load.image('lvl1frame4', "assets/dialogueLevel1-frame4.png" )
-    this.load.image('lvl1frame5', "assets/dialogueLevel1-frame5.png" )
+    this.load.image('lvl1frame1', "assets/dialogueLevel1-frame1.png")
+    this.load.image('lvl1frame2', "assets/dialogueLevel1-frame2.png")
+    this.load.image('lvl1frame3', "assets/dialogueLevel1-frame3.png")
+    this.load.image('lvl1frame4', "assets/dialogueLevel1-frame4.png")
+    this.load.image('lvl1frame5', "assets/dialogueLevel1-frame5.png")
     this.load.image('lvl1CharFrame1', "assets/dialogueLevel1-character-frame1.png")
     this.load.image('lvl1CharFrame2', "assets/dialogueLevel1-character-frame2.png")
     this.load.image('lvl1CharFrame3',"assets/dialogueLevel1-character-frame3.png")
@@ -172,25 +177,24 @@ class LoadingScene extends Phaser.Scene {
     //level 3
     this.load.image('lvl3CharFrame1', "assets/dialogueLevel3-character-frame1.png")
     this.load.image('lvl3CharFrame2', "assets/dialogueLevel3-character-frame2.png")
-    this.load.image('lvl3frame1', "assets/dialogueLevel3-frame1.png" )
-    this.load.image('lvl3frame2', "assets/dialogueLevel3-frame2.png" )
-    this.load.image('lvl3frame3', "assets/dialogueLevel3-frame3.png" )
-    this.load.image('lvl3frame4', "assets/dialogueLevel3-frame4.png" )
+    this.load.image('lvl3frame1', "assets/dialogueLevel3-frame1.png")
+    this.load.image('lvl3frame2', "assets/dialogueLevel3-frame2.png")
+    this.load.image('lvl3frame3', "assets/dialogueLevel3-frame3.png")
+    this.load.image('lvl3frame4', "assets/dialogueLevel3-frame4.png")
 
     //tutorials and situations
-    this.load.image('start', "assets/start.png" )
-    this.load.image('tutorial1', "assets/tutorialFrame1.png" )
-    this.load.image('tutorial2', "assets/tutorialFrame2.png" )
-    this.load.image('situation1', "assets/situationLvl1.png" )
-    this.load.image('situation2', "assets/situationLvl2.png" )
-    this.load.image('situation3', "assets/situationLvl3.png" )
-    this.load.image('goal3', "assets/levelThreeGoal.png" )
-
+    this.load.image('start', "assets/start.png")
+    this.load.image('tutorial1', "assets/tutorialFrame1.png")
+    this.load.image('tutorial2', "assets/tutorialFrame2.png")
+    this.load.image('situation1', "assets/situationLvl1.png")
+    this.load.image('situation2', "assets/situationLvl2.png")
+    this.load.image('situation3', "assets/situationLvl3.png")
+    this.load.image('goal3', "assets/levelThreeGoal.png")
 
     //gameOver
     this.load.image("gameOver", "assets/gameOver.png")
     this.load.image("missionFailed", "assets/missionFailed.png")
-    this.load.image('recipeUnlocked', "assets/recipeUnlockedBanner.png" )
+    this.load.image('recipeUnlocked', "assets/recipeUnlockedBanner.png")
     this.load.image("tryAgain", "assets/tryAgain.png")
 
     //recipe received
@@ -286,7 +290,7 @@ class LoadingScene extends Phaser.Scene {
   create() {
     music = this.sound.add('music', { loop: true})
     music.play()
-    gameOver =  this.sound.add('gameOverSound', { loop: false})
+    gameOverSound =  this.sound.add('gameOverSound', { loop: false})
     click = this.sound.add('click', {loop: false})
     cash = this.sound.add('cash', { loop: false})
     no = this.sound.add('no', { loop: false})

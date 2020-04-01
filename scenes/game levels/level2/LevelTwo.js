@@ -72,7 +72,7 @@ class LevelTwo extends Phaser.Scene {
     );
 
     
-    this.enemyProgress = this.time.addEvent({
+    enemyProgress = this.time.addEvent({
       delay: Phaser.Math.Between(4000, 6000),
       callback: function() {
         this.enemyProgressBarMask.y -= randomProgress;
@@ -87,7 +87,7 @@ class LevelTwo extends Phaser.Scene {
         enemyScore += randomProgress
 
         if (enemyScore >= goal) {
-          this.showGameOver()
+          new ShowGameOver(this, lvl2)
         }
         this.time.delayedCall(800,()=>enemyPoints.destroy(), [], this)
       },
@@ -103,96 +103,41 @@ class LevelTwo extends Phaser.Scene {
     }, this);
 
     this.input.on("drop", function(pointer, obj, dropZone) {
-      if (obj.name === dropZone.name) {
-        obj.x = dropZone.x;
-        obj.y = dropZone.y;
-        obj.input.enabled = false;
-        coins += 1
-        obj.destroy();
-        dropZone.destroy();
-        timerEvent.remove()
-
-        eat.play()
-
-        score += point;
-      
-        ordersCount -= 1
-        ordersCountText.setText(ordersCount)
+      if (dropZone.name === 'throw') {
+        obj.destroy()
+      } else {
+        if (obj.name === dropZone.name) {
+          obj.x = dropZone.x;
+          obj.y = dropZone.y;
+          obj.input.enabled = false;
+          coins += 1
+          obj.destroy();
+          dropZone.destroy();
+          timerEvent.remove()
+  
+          eat.play()
+  
+          score += point;
         
-        if (score < goal) {
-          fullProgressBarMask.y -= point
+          ordersCount -= 1
+          ordersCountText.setText(ordersCount)
+          
+          if (score < goal) {
+            fullProgressBarMask.y -= point
+          }
+          if (score >= goal) {
+            fullProgressBarMask.y -= point
+            new ShowSuccess(this, 2, "levelTwoSuccess")
+          }
+        } else if (obj.name != dropZone.name) {
+          obj.destroy();
+          dropZone.destroy();
+          no.play()
         }
-        if (score >= goal) {
-          fullProgressBarMask.y -= point
-          this.showSuccess()
-        }
-      } else if (obj.name != dropZone.name) {
-        obj.destroy();
-        dropZone.destroy();
-        no.play()
       }
-    
     }, this);
 
-    this.rightVillagersEvent = this.time.addEvent({
-      delay: Phaser.Math.Between(7000, 8000),
-      callback: function() {
-        let villager = new VillagerFromRight(
-          this,
-          this.game.renderer.width,
-          this.game.renderer.height / 2 + 180,
-          2
-        );
-        villagers.add(villager)
-        villager.setDepth(1)
-      },
-      callbackScope: this,
-      loop: true
-    });
-
-    this.leftVillagersEvent = this.time.addEvent({
-      delay: Phaser.Math.Between(7000, 8000),
-      callback: function() {
-        let villager = new VillagerFromLeft(
-          this,
-          0,
-          this.game.renderer.height / 2 + 180,
-          2
-        );
-        villagers.add(villager)
-        villager.flipX = true;
-        villager.setDepth(1)
-      },
-      callbackScope: this,
-      loop: true
-    });
-  }
-
-  showGameOver() {
-    this.scene.pause();
-    new RemoveEntities(this)
-    this.rightVillagersEvent.remove()
-    this.leftVillagersEvent.remove()
-    this.enemyProgress.remove()
-    home.destroy()
-    this.scene.launch('gameOver')
-  }
-
-  showSuccess() {
-    this.scene.pause();
-    new RemoveEntities(this)
-    this.rightVillagersEvent.remove()
-    this.leftVillagersEvent.remove()
-    this.enemyProgress.remove()
-    this.scene.launch('levelTwoSuccess')
-    this.time.addEvent({
-      delay: 100,
-      callback: function() {
-        this.scene.start('mainGameLevels')
-      },
-      callbackScope: this,
-      loop: false
-    });
+    rightVillagersEvent = new CustomersEventTimer(this, Phaser.Math.Between(7000, 8000), 'right', 2 )
+    leftVillagersEvent = new CustomersEventTimer(this, Phaser.Math.Between(7000, 8000), 'left', 2 )
   }
 }
-

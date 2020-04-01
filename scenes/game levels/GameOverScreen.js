@@ -7,7 +7,7 @@ class GameOver extends Phaser.Scene {
     this.gameOver = this.add.image(0, this.game.renderer.height/2, 'gameOver')
     new BoinkyTransition(this, this.gameOver, this.game.renderer.width/2, 3000, [1.5, 0.5])
 
-    gameOver.play()
+    gameOverSound.play()
 
     this.time.delayedCall(3300, function() {
       let tryAgain = this.add.image(this.game.renderer.width/2, this.gameOver.y + 100, 'tryAgain').setScale(0.5)

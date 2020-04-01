@@ -27,7 +27,7 @@ class MainGameScene extends EntityScene {
     home.on('pointerdown', function() {
       scene.scene.start('mainMenu')
       music.play()
-      lvlMusic.stop()
+      lvlMusic.pause()
     }, this)
     
 
@@ -45,6 +45,14 @@ class MainGameScene extends EntityScene {
         "enemyCart"
       ).setScale(0.8, 0.8)
   
+    garbageBag= scene.add
+      .image(
+        50,
+        scene.game.renderer.height - 50,
+        "garbage"
+      ).setScale(0.3, 0.3).setInteractive().setName('throw')
+
+      garbageBag.input.dropZone = true
   }
 }
 
@@ -172,7 +180,10 @@ class GenerateSpecialVillager extends EntityScene {
 class RemoveEntities extends EntityScene {
   constructor(scene) {
     super(scene)
-
+    garbageBag.destroy()
+    enemyProgress.destroy()
+    rightVillagersEvent.destroy()
+    leftVillagersEvent.destroy()
     villagers.children.each((villager) => villager.destroy())
     foodMenu.children.each((menu) => menu.destroy())
     demands.children.each((demand) => demand.destroy())
@@ -212,6 +223,69 @@ class BoinkyTransition extends EntityScene {
       ease: 'Elastic',
       easeParams: easeParams,
       delay: 0
+    });
+  }
+}
+
+class CustomersEventTimer extends EntityScene {
+  constructor(scene, delay, direction, level) {
+    super(scene)
+    
+    scene.time.addEvent({
+      delay: delay,
+      callback: function() {
+        let villager
+        if (direction === 'right') {
+          villager = new VillagerFromRight(scene, scene.game.renderer.width, scene.game.renderer.height / 2 + 180, level)
+        } else {
+          villager = new VillagerFromLeft(scene, 0, scene.game.renderer.height / 2 + 180, level)
+          villager.flipX = true
+        }
+        villagers.add(villager)
+        villager.setDepth(1)
+      },
+      callbackScope: scene,
+      loop: true
+    });
+  }
+
+}
+
+class ShowGameOver extends EntityScene {
+  constructor(scene, lvlMusic) {
+    super(scene)
+    lvlMusic.pause()
+    scene.scene.pause();
+    new RemoveEntities(scene)
+    home.destroy()
+    scene.scene.launch('gameOver')
+  }
+}
+
+class ShowSuccess extends EntityScene {
+  constructor(scene, level, levelKey) {
+    super(scene)
+
+    scene.scene.pause();
+    new RemoveEntities(scene)
+    home.destroy()
+    if (level === 3) {
+      if (recipes.includes('key')) {
+        scene.scene.launch(levelKey)
+      } else {
+        scene.scene.launch('missionFailed')
+      }
+    } else {
+      scene.scene.launch(levelKey)
+    }
+  
+    scene.time.addEvent({
+      delay: 100,
+      callback: function() {
+        scene.scene.start('mainGameLevels')
+      },
+      callbackScope: scene,
+      loop: false
     });
   }
 }

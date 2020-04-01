@@ -18,6 +18,7 @@ class KeyReceived extends Phaser.Scene {
         this.add.image(this.game.renderer.width/2, this.game.renderer.height/2 + 120, 'continue')
         this.confetti = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2, 'confetti')
         this.confetti.play('confettiDrop')
+        lvl3.pause()
         let keyReceivedSound =  this.sound.add('keyReceivedSound', { loop: false})
         keyReceivedSound.play()
       },
@@ -30,6 +31,7 @@ class KeyReceived extends Phaser.Scene {
         click.play()
         this.scene.stop();
         this.scene.resume("levelThree");
+        lvl3.resume()
       },
       this
     );
